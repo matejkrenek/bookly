@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const authRoute = require('./routes/authRoute');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 
 const app = express();
 const port = 3000;
@@ -10,6 +11,7 @@ const port = 3000;
 // Middlewares
 app.use(express.static('public'));
 app.use(express.json());
+app.use(cookieParser())
 app.use(morgan('dev'))
 
 // View Engine
