@@ -1,6 +1,6 @@
 // Dependencies
-const { error } = require('console');
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 
 // handle errors function
 const handleErrors = (err) => {
@@ -41,23 +41,13 @@ const handleErrors = (err) => {
     return errors
 }
 
-module.exports.login_get = (req, res) => {
-    res.render('login')
+// Create Token
+const tokenAge = 24*60*60;
+const createToken = (id) => {
+    return jwt.sign({ id }, 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMPBBxtmUK1YHISMkgRsZ1la5Z', {
+        expiresIn: tokenAge
+    });
 }
-
-module.exports.login_post = async (req, res) => {
-    const { email, password } = req.body
-
-    try{
-        const user = await User.login(email, password)
-        res.status(200).json({ user: user._id })
-    } 
-    catch(err) {
-        const errors = handleErrors(err)
-        res.status(400).json({ errors })
-    }
-}
-
 
 module.exports.signup_get = (req, res) => {
     res.render('signup')
@@ -68,6 +58,8 @@ module.exports.signup_post = async (req, res) => {
 
     try{
         const user = await User.create({ email, username, password })
+        const token = createToken(user._id)
+        res.cookie('token', token, { httpOnly: true, maxAge: tokenAge*1000 })
         res.status(200).json({ user: user._id })
     }
     catch(err){
@@ -75,3 +67,24 @@ module.exports.signup_post = async (req, res) => {
         res.status(400).json({ errors });
     }
 }
+
+module.exports.login_get = (req, res) => {
+    res.render('login')
+}
+
+module.exports.login_post = async (req, res) => {
+    const { email, password } = req.body
+
+    try{
+        const user = await User.login(email, password)
+        const token = createToken(user._id)
+        res.cookie('token', token, {httpOnly: true, maxAge: tokenAge*1000})
+        res.status(200).json({ user: user._id })
+    } 
+    catch(err) {
+        const errors = handleErrors(err)
+        res.status(400).json({ errors })
+    }
+}
+
+
