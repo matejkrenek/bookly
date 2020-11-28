@@ -1,50 +1,23 @@
 // Dependencies
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
+const { handleErrors } = require('../helpers/errorHandling')
+const _ = require('lodash');
+const { OAuth2Client } = require('google-auth-library');
+const fetch = require('node-fetch')
+//const sgMail = require('@sendgrid/mail')
+//require('dotenv').config({
+//    path:'./config/config.env'
+//})
 
-// handle errors function
-const handleErrors = (err) => {
-    console.log(err.message, err.code)
-    const errors = {
-        username: '',
-        email: '',
-        password: '',
-        agreement: ''
-    }
+//sgMail.setApiKey(process.env.MAIL_KEY)
 
-    // incorrect email
-    if(err.message === 'incorrect email'){
-        errors.email = 'Email address is incorrect'
-    }
-
-    // incorrect password
-    if(err.message === 'incorrect password'){
-        errors.password = 'Password is incorrect'
-    }
-
-    // Duplicated error
-    if(err.code === 11000){
-        for(const prop in errors){
-            if(err.message.includes(prop)){
-                errors[prop] = `User with this ${prop} already exists`
-            }
-        }
-        return errors
-    }
-
-    if(err.message.includes('user validation failed')){
-        Object.values(err.errors).forEach(({ properties }) => {
-            errors[properties.path] = properties.message;
-        })
-    }
-
-    return errors
-}
 
 // Create Token
 const tokenAge = 24*60*60;
 const createToken = (id) => {
-    return jwt.sign({ id }, 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMPBBxtmUK1YHISMkgRsZ1la5Z', {
+    return jwt.sign({ id }, process.env.JWT_ACCOUNT_ACTIVATION, {
         expiresIn: tokenAge
     });
 }
@@ -59,6 +32,30 @@ module.exports.signup_post = async (req, res) => {
     try{
         const user = await User.create({ email, username, password, agreement })
         const token = createToken(user._id)
+        /*const emailData = {
+            from: process.env.EMAIL_FROM,
+            to: email,
+            subject: 'Account activation link',
+            html: `
+                <h1>Please Click to the link to activate your account</h1>
+                <p>${process.env.CLIENT_URL}/user/active/${token}</p>
+                </hr>
+                <p>This email contain sensetive data</p>
+                <p>${process.env.CLIENT_URL}</p>
+                `
+        }
+
+        sgMail.send(emailData)
+        .then((sent) => {
+            console.log('Email has been sent to', sent)
+            return res.json({success: `Email has been sent to ${email}`})
+        })
+        .catch(err => {
+            res.status(400).json({
+                error: err
+            })
+        })
+        */
         res.cookie('token', token, { httpOnly: true, maxAge: tokenAge*1000 })
         res.status(200).json({ user: user._id })
     }

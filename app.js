@@ -31,6 +31,8 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(cookieParser())
 
+app.set('view engine', 'ejs')
+
 // Routes
 app.get('*', checkUser);
 app.get('/', (req, res) => res.render('index', {title: 'Create your own book list'}));

@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-    
-    <link rel="icon" href="logo.svg">
-    <link rel="stylesheet" href="style.css">
-    <title><%= title %> | Bookly</title>
-</head>
-<body>
+import React from 'react'
 
+export const Navbar = () => {
+    return (
     <div class="navbar">
         <div class="container row">
             <div class="logo__container">
@@ -22,14 +14,11 @@
                     <li><a href="/feedback">Feedback</a></li>
                 </ul>
                 <ul class="navLinks flexbox">
-                    <% if(user){ %>
-                        <li><a href="/logout">Log out</a></li>
-                    <% } else{%>
-                        <li><a href="/login">Log in</a></li>
-                        <li><a href="/signup">Sign up</a></li>
-                    <% }%>
+                    <li><a href="/login">Log in</a></li>
+                    <li><a href="/signup">Sign up</a></li>
                 </ul>
             </div>
         </div>
     </div>
-    
+    )
+}

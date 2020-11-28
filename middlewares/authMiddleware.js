@@ -6,7 +6,7 @@ const requireAuth = (req, res, next) => {
     const token = req.cookies.token;
 
     if(token){
-        jwt.verify(token, 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMPBBxtmUK1YHISMkgRsZ1la5Z', (err, decodedData) => {
+        jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, (err, decodedData) => {
             if(err){
                 console.log(err.message)
                 res.redirect('/login')
@@ -26,7 +26,7 @@ const requireNotAuth = (req, res, next) => {
     const token = req.cookies.token;
 
     if(token){
-        jwt.verify(token, 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMPBBxtmUK1YHISMkgRsZ1la5Z', (err, decodedData) => {
+        jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, (err, decodedData) => {
             if(err){
                 console.log(err.message)
                 next()
