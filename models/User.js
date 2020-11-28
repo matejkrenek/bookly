@@ -3,6 +3,14 @@ const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: [true, 'Email is required parameter'],
+        unique: true,
+        lowercase: true,
+        validate: [isEmail, 'This is not a valid email address'],
+    },
+
     username: {
         type: String,
         required: [true, 'Usernmae is required parameter'],
@@ -11,14 +19,6 @@ const userSchema = new mongoose.Schema({
         minlength: [3, 'Username must be at least 3 characters long'],
     },
 
-    email: {
-        type: String,
-        required: [true, 'Email is required parameter'],
-        unique: true,
-        lowercase: true,
-        validate: [isEmail, 'This is not a valid email address'],
-    },
-    
     password: {
         type: String,
         required: [true, 'Password is required parameter'],
@@ -34,8 +34,14 @@ const userSchema = new mongoose.Schema({
             },
             message: 'This value must be true'
         }
+    },
+
+    resetPasswordLink: {
+        type:String,
+        default: ""
+
     }
-});
+}, {timeStamp: true});
 
 // This will fire function before storing data in database
 userSchema.pre('save', async function(next){
