@@ -3,14 +3,6 @@ const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-    email: {
-        type: String,
-        required: [true, 'Email is required parameter'],
-        unique: true,
-        lowercase: true,
-        validate: [isEmail, 'This is not a valid email address'],
-    },
-
     username: {
         type: String,
         required: [true, 'Usernmae is required parameter'],
@@ -19,11 +11,30 @@ const userSchema = new mongoose.Schema({
         minlength: [3, 'Username must be at least 3 characters long'],
     },
 
+    email: {
+        type: String,
+        required: [true, 'Email is required parameter'],
+        unique: true,
+        lowercase: true,
+        validate: [isEmail, 'This is not a valid email address'],
+    },
+    
     password: {
         type: String,
         required: [true, 'Password is required parameter'],
         minlength: [6, 'Password must be at least 6 characters long'],
     },
+
+    agreement: {
+        type: Boolean,
+        required: [true, 'Required'],
+        validate: {
+            validator: function (value) {
+                return value
+            },
+            message: 'This value must be true'
+        }
+    }
 });
 
 // This will fire function before storing data in database

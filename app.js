@@ -25,6 +25,6 @@ mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true })
     .catch(err => console.log(err))
 
 app.get('*', checkUser);
-app.get('/', (req, res) => res.render('index'));
+app.get('/', (req, res) => res.render('index', {title: 'Create your own book list'}));
 app.get('/shop', requireAuth, (req, res) => res.send('Shop Here'));
 app.use(authRoute);

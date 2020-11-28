@@ -6,9 +6,10 @@ const jwt = require('jsonwebtoken');
 const handleErrors = (err) => {
     console.log(err.message, err.code)
     const errors = {
-        email: '',
         username: '',
+        email: '',
         password: '',
+        agreement: ''
     }
 
     // incorrect email
@@ -22,15 +23,13 @@ const handleErrors = (err) => {
     }
 
     // Duplicated error
-    if(err.code === 11000){
-        for(const prop in errors){
-            if(err.message.includes(prop)){
-                errors[prop] = `User with this ${prop} already exists`
-                return errors
-            }
-        }
+    if(err.message.includes('username') && err.code === 11000){
+        errors.username = `User with this username already exists`
     }
 
+    if(err.message.includes('email') && err.code === 11000){
+        errors.email = `User with this email already exists`
+    }
 
     if(err.message.includes('user validation failed')){
         Object.values(err.errors).forEach(({ properties }) => {
@@ -50,14 +49,14 @@ const createToken = (id) => {
 }
 
 module.exports.signup_get = (req, res) => {
-    res.render('signup')
+    res.render('signup', {title: "Start your journey"})
 }
 
 module.exports.signup_post = async (req, res) => {
-    const { email, username, password } = req.body;
+    const { email, username, password, agreement } = req.body;
 
     try{
-        const user = await User.create({ email, username, password })
+        const user = await User.create({ email, username, password, agreement })
         const token = createToken(user._id)
         res.cookie('token', token, { httpOnly: true, maxAge: tokenAge*1000 })
         res.status(200).json({ user: user._id })
@@ -69,7 +68,7 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.login_get = (req, res) => {
-    res.render('login')
+    res.render('login', {title: 'Welcome back'})
 }
 
 module.exports.login_post = async (req, res) => {

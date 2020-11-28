@@ -1,11 +1,75 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Login Here</h1>
-</body>
-</html>
+<%- include('./templates/header.ejs')%>
+    <div class="formSection">
+        <div class="container column">
+            <h2 class="titleSection">Welcome back</h2>
+            <p class="ctaLink">Don't have an account yet? <a href="/signup">Create an Account</a></p>
+            <a class="googleAlt" href="#"><i class="fab fa-google"></i> Login with Google</a>
+            <div class="orLine__horizontal flexbox">
+                <p>or</p>
+            </div>
+            <form class="userForm">
+                <div class="fieldSection email">
+                    <p class="errorMessage"></p>
+                    <input type="email" name="email">
+                    <label for="email">E-mail</label>
+                </div>
+                <div class="fieldSection password">
+                    <p class="errorMessage"></p>
+                    <input type="password" name="password">
+                    <label for="password">Password</label>
+                </div>
+                <div class="fieldSection agreement">
+                    <input type="checkbox" name="agreement" id="agreement">
+                    <label for="agreement">Remember me</label>
+                </div>
+                <button class="btn blue">Login</button>
+            </form>
+        </div>
+    </div>
+    <script>
+        const form = document.querySelector('form')
+        const emailSection = document.querySelector('.email')
+        const passwordSection = document.querySelector('.password')
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+
+            const email = form.email.value;
+            const password = form.password.value;
+
+            try{
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    body: JSON.stringify({email, password}),
+                    headers: {'Content-Type': 'application/json'}
+                });
+
+                const data = await res.json();
+                console.log(data)
+                if(data.errors){
+                    if(data.errors.email.length > 0){
+                        emailSection.classList.add('error')
+                        emailSection.querySelector('.errorMessage').textContent = data.errors.email
+                    } else{
+                        emailSection.classList.remove('error')
+                        emailSection.querySelector('.errorMessage').textContent = ''
+                    }
+                    if(data.errors.password.length > 0){
+                        passwordSection.classList.add('error')
+                        passwordSection.querySelector('.errorMessage').textContent = data.errors.password
+                    } else{
+                        passwordSection.classList.remove('error')
+                        passwordSection.querySelector('.errorMessage').textContent = ''
+                    }
+
+                } else{
+                    location.assign('/')
+                }
+            } catch(err){
+                console.log(err)
+            }
+        })
+    </script>
+
+    <%- include('./templates/inputFocusAnimation.ejs')%>
+<%- include('./templates/footer.ejs')%>

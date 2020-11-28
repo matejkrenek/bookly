@@ -21,6 +21,26 @@ const requireAuth = (req, res, next) => {
     }
 }
 
+// Not Auth
+const requireNotAuth = (req, res, next) => {
+    const token = req.cookies.token;
+
+    if(token){
+        jwt.verify(token, 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMPBBxtmUK1YHISMkgRsZ1la5Z', (err, decodedData) => {
+            if(err){
+                console.log(err.message)
+                next()
+            } else{
+                console.log(decodedData)
+                res.redirect('/user')
+            }
+        })
+
+    } else{
+        next()
+    }
+}
+
 // Check which user is login
 const checkUser = (req, res, next) => {
     const token = req.cookies.token
@@ -45,5 +65,6 @@ const checkUser = (req, res, next) => {
 module.exports = {
     requireAuth,
     checkUser,
+    requireNotAuth,
 
 }
