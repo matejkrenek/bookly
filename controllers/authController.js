@@ -23,12 +23,13 @@ const handleErrors = (err) => {
     }
 
     // Duplicated error
-    if(err.message.includes('username') && err.code === 11000){
-        errors.username = `User with this username already exists`
-    }
-
-    if(err.message.includes('email') && err.code === 11000){
-        errors.email = `User with this email already exists`
+    if(err.code === 11000){
+        for(const prop in errors){
+            if(err.message.includes(prop)){
+                errors[prop] = `User with this ${prop} already exists`
+            }
+        }
+        return errors
     }
 
     if(err.message.includes('user validation failed')){
@@ -88,6 +89,6 @@ module.exports.login_post = async (req, res) => {
 
 module.exports.logout_get = (req, res) => {
     res.cookie('token', '', {maxAge: 1});
-    res.redirect('/');
+    res.redirect('/login');
 }
 
