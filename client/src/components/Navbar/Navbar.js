@@ -1,21 +1,22 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export const Navbar = () => {
     return (
-    <div class="navbar">
-        <div class="container row">
-            <div class="logo__container">
-                <a href="/" class="logo">Bookly</a>
+    <div className="navbar">
+        <div className="container row">
+            <div className="logo__container">
+                <Link to="/" className="logo">Bookly</Link>
             </div>
-            <div class="navLinks__container flexbox">
-                <ul class="navLinks flexbox">
-                    <li><a href="/books">Books</a></li>
-                    <li><a href="/authors">Authors</a></li>
-                    <li><a href="/feedback">Feedback</a></li>
+            <div className="navLinks__container flexbox">
+                <ul className="navLinks flexbox">
+                    <li><Link to="/books">Books</Link></li>
+                    <li><Link to="/authors">Authors</Link></li>
+                    <li><Link to="/feedback">Feedback</Link></li>
                 </ul>
-                <ul class="navLinks flexbox">
-                    <li><a href="/login">Log in</a></li>
-                    <li><a href="/signup">Sign up</a></li>
+                <ul className="navLinks flexbox">
+                    <li><Link to="/login">Log in</Link></li>
+                    <li><Link to="/signup">Sign up</Link></li>
                 </ul>
             </div>
         </div>

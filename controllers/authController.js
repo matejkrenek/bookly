@@ -1,18 +1,14 @@
 // Dependencies
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
-const expressJwt = require('express-jwt');
 const { handleErrors } = require('../helpers/errorHandling')
-const _ = require('lodash');
-const { OAuth2Client } = require('google-auth-library');
-const fetch = require('node-fetch')
-//const sgMail = require('@sendgrid/mail')
-//require('dotenv').config({
-//    path:'./config/config.env'
-//})
+const nodemailer = require('nodemailer')
+var smtpTransport = require('nodemailer-smtp-transport');
 
-//sgMail.setApiKey(process.env.MAIL_KEY)
-
+// Config
+require('dotenv').config({
+    path:'./config/config.env'
+})
 
 // Create Token
 const tokenAge = 24*60*60;
@@ -22,8 +18,17 @@ const createToken = (id) => {
     });
 }
 
+// email transporter
+let transporter = nodemailer.createTransport(smtpTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.EMAIL_FROM,
+        pass: process.env.EMAIL_FROM_PASS
+    }
+}));
+
 module.exports.signup_get = (req, res) => {
-    res.render('signup', {title: "Start your journey"})
+
 }
 
 module.exports.signup_post = async (req, res) => {
@@ -31,33 +36,29 @@ module.exports.signup_post = async (req, res) => {
 
     try{
         const user = await User.create({ email, username, password, agreement })
-        const token = createToken(user._id)
-        /*const emailData = {
+        const token = await createToken(user._id)
+
+        let mailOptions = {
             from: process.env.EMAIL_FROM,
             to: email,
-            subject: 'Account activation link',
+            subject: 'Confirming Registration',
+            text: '',
             html: `
-                <h1>Please Click to the link to activate your account</h1>
-                <p>${process.env.CLIENT_URL}/user/active/${token}</p>
-                </hr>
-                <p>This email contain sensetive data</p>
-                <p>${process.env.CLIENT_URL}</p>
+                <h1 style="font-family: serif; color: #2D32E2; font-size: 78px;">Bookly</h1>
+                <p style="font-size: 16px; font-family: sans-serif; color: #5E6C80; margin-bottom: 32px;">Registration was successful!!</p>
+                <a href="${process.env.CLIENT_URL}/user/activate" style="font-family: sans-serif; color: #FFFFFF; font-size: 16px; padding: 24px 48px; border: none; background-color: #2D32E2; font-weight: 600; text-decoration: none; text-align: center;">Active an Account</a>
                 `
-        }
+        };
 
-        sgMail.send(emailData)
-        .then((sent) => {
-            console.log('Email has been sent to', sent)
-            return res.json({success: `Email has been sent to ${email}`})
-        })
-        .catch(err => {
-            res.status(400).json({
-                error: err
-            })
-        })
-        */
-        res.cookie('token', token, { httpOnly: true, maxAge: tokenAge*1000 })
-        res.status(200).json({ user: user._id })
+        transporter.sendMail(mailOptions, async (err, data) => {
+            if (!err) {
+                res.status(200).json({'message': 'Email was succesfuly sended'})
+            } else {
+                res.status(400).json({'err': err})
+                console.log(process.env.EMAIL_FROM, process.env.EMAIL_FROM_PASS)
+            }
+        }); 
+       
     }
     catch(err){
         const errors = handleErrors(err);
@@ -66,7 +67,7 @@ module.exports.signup_post = async (req, res) => {
 }
 
 module.exports.login_get = (req, res) => {
-    res.render('login', {title: 'Welcome back'})
+
 }
 
 module.exports.login_post = async (req, res) => {

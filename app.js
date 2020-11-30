@@ -2,7 +2,6 @@
 const express = require('express');
 const morgan = require('morgan');
 const authRoute = require('./routes/authRoute');
-const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors')
 const connectDB = require('./config/db')
@@ -13,7 +12,7 @@ require('dotenv').config({
     path:'./config/config.env'
 })
 const app = express();
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 connectDB()
 
 
@@ -35,7 +34,7 @@ app.set('view engine', 'ejs')
 
 // Routes
 app.get('*', checkUser);
-app.get('/', (req, res) => res.render('index', {title: 'Create your own book list'}));
+app.get('/', (req, res) => res.json({'message': 'main page here'}));
 app.get('/shop', requireAuth, (req, res) => res.send('Shop Here'));
 app.use(authRoute);
 
