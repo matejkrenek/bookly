@@ -1,18 +1,22 @@
 import React from 'react'
 import { Navbar } from './components/Navbar/Navbar'
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import { Login } from './components/Login'
-import { Signup } from './components/Signup'
-import './style.css'
+import { Login } from './components/FormSection/Login'
+import { Signup } from './components/FormSection/Signup'
+import { Home } from './components/Home/Home';
+import './App.css'
 
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="App">
+      <>
         <Navbar/>
-        <Route path='/login' component={Login}/>
-        <Route path='/signup' component={Signup} />
-      </div>
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/login' component={Login}/>
+          <Route path='/signup' component={Signup} />
+        </Switch>
+      </>
     </Router>
   ); 
 }

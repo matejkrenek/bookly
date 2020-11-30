@@ -1,0 +1,48 @@
+.heroPage .container{
+    margin-top: 40px;
+}
+
+p.littleTitle{
+    color: #2D32E2;
+    font-weight: 500;
+    font-size: var(--text-size-5);
+    margin-bottom: 16px;
+}
+
+h1.title{
+    font-size: var(--text-size-1);
+    line-height: 100%;
+    color: #131A6D;
+}
+
+h1.title:nth-child(3){
+    margin-bottom: 60px;
+    color: #6E84A0;
+}
+
+.searchForm{
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    box-shadow: 0 13px 39px rgba(0, 0, 0, 0.05);
+    border-radius: 13px;
+    max-width: 980px;
+    min-width: 740px;
+    height: 90px;
+    padding: 0 24px;
+
+}
+
+.searchIcon{
+    color: #C4C9CF;
+
+}
+
+.searchForm .input{
+    height: 100%;
+}
+
+.searchForm .btn{
+}
+

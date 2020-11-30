@@ -1,0 +1,23 @@
+/* NAVBAR */
+.navbar{
+    width: 100%;
+}
+
+.navbar .container{
+    padding: var(--padding-larger) 170px;
+}
+
+.logo{
+    font-size: var(--text-size-4);
+    color: #2D32E2;
+    margin-right: 60px;
+}
+
+.navLinks__container{
+    justify-content: space-between;
+    width: 100%
+}
+
+.navLinks{
+    gap: 50px;
+}
