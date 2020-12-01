@@ -1,7 +1,8 @@
-import React from 'react'
-import './Home.css'
-import SearchIcon from '@material-ui/icons/Search';
-import SvgIcon from '@material-ui/core/SvgIcon'
+import React from 'react';
+import './Home.css';
+import heroBG from './heroBG.svg';
+import search from './search.svg';
+import { Link } from 'react-router-dom';
 
 export const Home = () => {
     return (
@@ -11,10 +12,12 @@ export const Home = () => {
                 <h1 className="title">Create your own book list</h1>
                 <h1 className="title">and share it with others</h1>
                 <form className="searchForm">
-                    <SvgIcon className="searchIcon" component={SearchIcon}></SvgIcon>
+                    <img src={search} />
                     <input className="input" type="text" placeholder="Search for a book"/>
                     <button className="btn blue rounded">Search</button>
                 </form>
+                <p className="createAcc">Don’t have an account yet? <Link to="/signup">Create new account</Link></p>
+                <img src={heroBG} />
             </div>
         </div>
     )

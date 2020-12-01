@@ -1,0 +1,70 @@
+.booksSection .container.column{
+    align-items: flex-start;
+}
+
+.findingBar {
+    margin-top: 90px;
+}
+
+.findingBar .searchForm{
+    min-width: 610px;
+    height: 60px;
+    margin-bottom: 60px;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.findingBar .searchForm .input{
+    font-size: var(--text-size-6);
+}
+
+.findingBar .searchForm .btn{
+    font-size: var(--text-size-7);
+    padding: 15px 30px;
+}
+
+.booksGrid{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px 15px;
+}
+
+    .bookCard{
+
+    }
+
+    .bookCover{
+        width: 250px;
+        height: 315px;
+        margin-bottom: 10px;
+        background-color: rgba(127, 146, 172, 0.11);
+    }
+
+        .bookCover img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .bookInfo{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+        .bookName{
+            color: #000000;
+            font-size: var(--text-size-6);
+            font-weight: 500;
+        }
+
+        .authorName{
+            color: rgba(0, 0, 0, 0.25);
+            font-size: var(--text-size-6);
+            font-weight: 500;
+        }
+
+        .bookRating{
+            color: #2D32E2;
+            font-size: var(--text-size-6)
+        }

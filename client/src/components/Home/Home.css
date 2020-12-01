@@ -31,7 +31,7 @@ h1.title:nth-child(3){
     min-width: 740px;
     height: 90px;
     padding: 0 24px;
-
+    margin-bottom: 22px;
 }
 
 .searchIcon{
@@ -41,8 +41,26 @@ h1.title:nth-child(3){
 
 .searchForm .input{
     height: 100%;
+    font-size: var(--text-size-5);
+    color: #5E6C80;
+    font-weight: 500;
 }
 
-.searchForm .btn{
+    .searchForm .input::placeholder{
+        color: #C4C9CF;
+    }
+
+.createAcc{
+    color: #C4C9CF;
+    font-size: var(--text-size-5);
+    max-width: 980px;
+    min-width: 740px;
+    text-align: right;
+}
+
+.createAcc a{
+    color: #2D32E2;
+    font-weight: 600;
+    font-size: var(--text-size-5);
 }
 

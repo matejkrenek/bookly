@@ -4,7 +4,7 @@
 }
 
 .navbar .container{
-    padding: var(--padding-larger) 170px;
+    padding: var(--padding-larger) 0px;
 }
 
 .logo{
