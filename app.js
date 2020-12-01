@@ -3,7 +3,6 @@ const express = require('express');
 const morgan = require('morgan');
 const authRoute = require('./routes/authRoute');
 const cookieParser = require('cookie-parser');
-const cors = require('cors')
 const connectDB = require('./config/db')
 const { requireAuth, checkUser } = require('./middlewares/authMiddleware');
 
@@ -18,10 +17,6 @@ connectDB()
 
 // Config for only development
 if(process.env.NODE_ENV === "development"){
-    app.use(cors({
-        origin: process.env.CLIENT_URL
-    }))
-
     app.use(morgan('dev'))
 }
 
