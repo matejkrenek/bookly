@@ -1,6 +1,7 @@
 import React from 'react';
 import './Books.css';
-import bookCover from './book1.png'
+import bookCover1 from './book1.png'
+import bookCover2 from './book2.png'
 
 export const Books = () => {
     return (
@@ -15,7 +16,8 @@ export const Books = () => {
                 <div className="booksGrid">
                     <div className="bookCard">
                         <div className="bookCover">
-                            <img src={bookCover}/>
+                            <img src={bookCover1}/>
+                            <div className="hoverBox">+ Add to my list</div>
                         </div>
                         <div className="bookInfo">
                             <div className="bookMeta">
@@ -29,96 +31,13 @@ export const Books = () => {
                     </div>
                     <div className="bookCard">
                         <div className="bookCover">
-                            <img src={bookCover}/>
+                            <img src={bookCover2}/>
+                            <div className="hoverBox">+ Add to my list</div>
                         </div>
                         <div className="bookInfo">
                             <div className="bookMeta">
-                                <p className="bookName">The End of Procrastination</p>
-                                <p className="authorName">Petr Ludwig</p>
-                            </div>
-                            <div className="bookRating">
-                                <p>4,5</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bookCard">
-                        <div className="bookCover">
-                            <img src={bookCover}/>
-                        </div>
-                        <div className="bookInfo">
-                            <div className="bookMeta">
-                                <p className="bookName">The End of Procrastination</p>
-                                <p className="authorName">Petr Ludwig</p>
-                            </div>
-                            <div className="bookRating">
-                                <p>4,5</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bookCard">
-                        <div className="bookCover">
-                            <img src={bookCover}/>
-                        </div>
-                        <div className="bookInfo">
-                            <div className="bookMeta">
-                                <p className="bookName">The End of Procrastination</p>
-                                <p className="authorName">Petr Ludwig</p>
-                            </div>
-                            <div className="bookRating">
-                                <p>4,5</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bookCard">
-                        <div className="bookCover">
-                            <img src={bookCover}/>
-                        </div>
-                        <div className="bookInfo">
-                            <div className="bookMeta">
-                                <p className="bookName">The End of Procrastination</p>
-                                <p className="authorName">Petr Ludwig</p>
-                            </div>
-                            <div className="bookRating">
-                                <p>4,5</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bookCard">
-                        <div className="bookCover">
-                            <img src={bookCover}/>
-                        </div>
-                        <div className="bookInfo">
-                            <div className="bookMeta">
-                                <p className="bookName">The End of Procrastination</p>
-                                <p className="authorName">Petr Ludwig</p>
-                            </div>
-                            <div className="bookRating">
-                                <p>4,5</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bookCard">
-                        <div className="bookCover">
-                            <img src={bookCover}/>
-                        </div>
-                        <div className="bookInfo">
-                            <div className="bookMeta">
-                                <p className="bookName">The End of Procrastination</p>
-                                <p className="authorName">Petr Ludwig</p>
-                            </div>
-                            <div className="bookRating">
-                                <p>4,5</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="bookCard">
-                        <div className="bookCover">
-                            <img src={bookCover}/>
-                        </div>
-                        <div className="bookInfo">
-                            <div className="bookMeta">
-                                <p className="bookName">The End of Procrastination</p>
-                                <p className="authorName">Petr Ludwig</p>
+                                <p className="bookName">Grid systems in graphic design</p>
+                                <p className="authorName">Josef Muller-Brockmann</p>
                             </div>
                             <div className="bookRating">
                                 <p>4,5</p>

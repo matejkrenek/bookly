@@ -1,7 +1,11 @@
 /* NAVBAR */
 .navbar{
+    position: relative;
     width: 100%;
+    z-index: 1000;
+    z-index: 10;
 }
+
 
 .navbar .container{
     padding: var(--padding-larger) 0px;
@@ -21,3 +25,10 @@
 .navLinks{
     gap: 50px;
 }
+
+.navLinks li{
+    position: relative;
+}
+
+
+

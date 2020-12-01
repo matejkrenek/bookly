@@ -9,7 +9,7 @@
 .findingBar .searchForm{
     min-width: 610px;
     height: 60px;
-    margin-bottom: 60px;
+    margin-bottom: 50px;
     padding: 12px;
     border-radius: 8px;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
@@ -21,7 +21,7 @@
 
 .findingBar .searchForm .btn{
     font-size: var(--text-size-7);
-    padding: 15px 30px;
+    padding: 15px 40px;
 }
 
 .booksGrid{
@@ -35,16 +35,57 @@
     }
 
     .bookCover{
-        width: 250px;
-        height: 315px;
+        position: relative;
+        min-width: 250px;
+        min-height: 315px;
         margin-bottom: 10px;
         background-color: rgba(127, 146, 172, 0.11);
+        z-index: 1;
+        overflow: hidden;
+        cursor: pointer;
     }
 
+        .bookCover:hover .hoverBox{
+            transform: translateY(0%);
+            transition: transform 0.5s;
+        }
+
+        .bookCover:hover::before{
+            background-color: rgba(245, 247, 255, 0.75);
+            transition: all 0.5s;
+        }
+
         .bookCover img{
+            position: relative;
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .bookCover::before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(245, 247, 255, 0);
+            z-index: 1;
+            transition: all 0.5s;
+        }
+
+        .bookCover .hoverBox{
+            position: absolute;
+            background-color: #ffffff;
+            bottom: 0;
+            width: 100%;
+            padding: 24px 64px;
+            color: #2D32E2;
+            font-size: var(--text-size-6);
+            text-align: center;
+            z-index: 10;
+            transform: translateY(100%);    
+            transition: transform 0.5s;
         }
 
     .bookInfo{
