@@ -18,15 +18,15 @@ const App = () => {
 
   useEffect(() => {
       const signUpData = {
-        email: "bjbbfd.dffdsfssbfjh@gmail.com",
-        username:"kokotfsdf113",
-        password:"123456789",
-        agreement:true,
+        email: "bjbbfd.dffdsfdsfssbfjh@gmail.com",
+        username:"kokfdsotfsdf113",
+        password:"123",
+        agreement:false,
       }
 
       axios.post('/signup', signUpData)
-        .then(result => console.log(result.data))
-        .catch(err => console.log(err))
+        .then(response => console.log(response.data))
+        .catch(err => console.log(err.response.data))
   }, [])
 
   return (

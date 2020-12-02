@@ -38,31 +38,32 @@ module.exports.signup_post = async (req, res) => {
         const user = await User.create({ email, username, password, agreement })
         const token = await createToken(user._id)
 
-        let mailOptions = {
-            from: process.env.EMAIL_FROM,
-            to: email,
-            subject: 'Confirming Registration',
-            text: '',
-            html: `
-                <h1 style="font-family: serif; color: #2D32E2; font-size: 78px;">Bookly</h1>
-                <p style="font-size: 16px; font-family: sans-serif; color: #5E6C80; margin-bottom: 32px;">Registration was successful!!</p>
-                <a href="${process.env.CLIENT_URL}/user/activate" style="font-family: sans-serif; color: #FFFFFF; font-size: 16px; padding: 24px 48px; border: none; background-color: #2D32E2; font-weight: 600; text-decoration: none; text-align: center;">Active an Account</a>
-                `
-        };
-
-        transporter.sendMail(mailOptions, async (err, data) => {
-            if (!err) {
-                res.status(200).json({'message': 'Email was succesfuly sended'})
-            } else {
-                res.status(400).json({'err': err})
-                console.log(process.env.EMAIL_FROM, process.env.EMAIL_FROM_PASS)
-            }
-        }); 
-       
+        if(user){
+            let mailOptions = {
+                from: process.env.EMAIL_FROM,
+                to: email,
+                subject: 'Confirming Registration',
+                text: '',
+                html: `
+                    <h1 style="font-family: serif; color: #2D32E2; font-size: 78px;">Bookly</h1>
+                    <p style="font-size: 16px; font-family: sans-serif; color: #5E6C80; margin-bottom: 32px;">Registration was successful!!</p>
+                    <a href="${process.env.CLIENT_URL}/user/activate" style="font-family: sans-serif; color: #FFFFFF; font-size: 16px; padding: 24px 48px; border: none; background-color: #2D32E2; font-weight: 600; text-decoration: none; text-align: center;">Active an Account</a>
+                    `
+            };
+    
+            transporter.sendMail(mailOptions, async (err, data) => {
+                if (!err) {
+                    res.status(200).json({'message': 'Email was succesfuly sended'})
+                } else {
+                    res.status(400).json({'err': err})
+                    console.log(process.env.EMAIL_FROM, process.env.EMAIL_FROM_PASS)
+                }
+            });     
+        }
     }
     catch(err){
         const errors = handleErrors(err);
-        res.status(400).json({ errors });
+        res.status(400).json( errors );
     }
 }
 

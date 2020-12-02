@@ -14,8 +14,8 @@ const userSchema = new mongoose.Schema({
     username: {
         type: String,
         required: [true, 'Usernmae is required parameter'],
-        unique: true,
         lowercase: true,
+        unique: true,
         minlength: [3, 'Username must be at least 3 characters long'],
     },
 
@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
 
     agreement: {
         type: Boolean,
-        required: [true, 'Required'],
+        required: [true, 'Agreement is required to be true'],
         validate: {
             validator: function (value) {
                 return value
@@ -36,11 +36,6 @@ const userSchema = new mongoose.Schema({
         }
     },
 
-    resetPasswordLink: {
-        type:String,
-        default: ""
-
-    }
 }, {timeStamp: true});
 
 // This will fire function before storing data in database

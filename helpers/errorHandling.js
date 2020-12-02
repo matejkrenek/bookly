@@ -19,13 +19,12 @@ const handleErrors = (err) => {
     }
 
     // Duplicated error
-    if(err.code === 11000){
-        for(const prop in errors){
-            if(err.message.includes(prop)){
-                errors[prop] = `User with this ${prop} already exists`
-            }
-        }
-        return errors
+    if(err.code === 11000 && err.message.includes('email')){
+        errors.email = 'User with this email address already exists'
+    }
+
+    if(err.code === 11000 && err.message.includes('username')){
+        errors.username = 'User with this username already exists'
     }
 
     if(err.message.includes('user validation failed')){

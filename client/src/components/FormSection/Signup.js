@@ -1,8 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './formSection.css'
 
 export const Signup = () => {
+    const [formData, setFormData] = useState({
+        "username": "",
+        "email": "",
+        "password": ""
+    })
+
+    const { username, email, password } = formData;
+
+    const handleChange = text => e => {
+        console.log(username)
+        setFormData({...formData, [text]: e.targe.value })
+    }
+
+    const [activeState, setActiveState] = useState({
+        input1: true,
+        input2: true,
+        input3: true
+    })
+
+
+
+
     return (
         <div className="formSection">
         <div className="container column">
@@ -15,21 +37,21 @@ export const Signup = () => {
             <form className="userForm">
                 <div className="fieldSection username">
                     <p className="errorMessage"></p>
-                    <input type="text" name="username" />
+                    <input type="text" name="username" className={activeState.input1 ? 'focus' : ''} onChange={handleChange('username')} value={username}/>
                     <label htmlFor="username">User name</label>
                 </div>
                 <div className="fieldSection email">
                     <p className="errorMessage"></p>
-                    <input type="text" name="email" />
+                    <input type="text" name="email" className={activeState.input2 ? 'focus' : ''}  onChange={() => handleChange('email')}/>
                     <label htmlFor="email">E-mail</label>
                 </div>
                 <div className="fieldSection password">
                     <p className="errorMessage"></p>
-                    <input type="password" name="password"/>
+                    <input type="password" name="password" className={activeState.input3 ? 'focus' : ''} onChange={() => handleChange('password')}/>
                     <label htmlFor="password">Password</label>
                 </div>
                 <div className="fieldSection agreement">
-                    <input type="checkbox" name="agreement" id="agreement"/>
+                    <input type="checkbox" name="agreement" id="agreement" />
                     <label htmlFor="agreement">Creating an account means you’re okay with our <Link to="#">Terms of Service</Link>,
                         <Link to="#">Privacy Policy</Link>, and our default <Link to="#">Notification Settings</Link>.</label>
                 </div>

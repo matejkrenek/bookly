@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './formSection.css';
 
 export const Login = () => {
+    const [activeState, setActiveState] = useState(true);
+
+    const changeState = () => {
+
+    }
+
     return (
     <div className="formSection">
         <div className="container column">
@@ -15,12 +21,12 @@ export const Login = () => {
             <form className="userForm">
                 <div className="fieldSection email">
                     <p className="errorMessage"></p>
-                    <input type="email" name="email" />
+                    <input type="email" name="email" className={activeState ? 'focus' : ''} />
                     <label htmlFor="email">E-mail</label>
                 </div>
                 <div className="fieldSection password">
                     <p className="errorMessage"></p>
-                    <input type="password" name="password"/>
+                    <input type="password" name="password" className={activeState ? 'focus' : ''} />
                     <label htmlFor="password">Password</label>
                 </div>
                 <div className="fieldSection agreement">
