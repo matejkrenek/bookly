@@ -16,19 +16,6 @@ const App = () => {
     user: undefined
   })
 
-  useEffect(() => {
-      const signUpData = {
-        email: "bjbbfd.dffdsfdsfssbfjh@gmail.com",
-        username:"kokfdsotfsdf113",
-        password:"123",
-        agreement:false,
-      }
-
-      axios.post('/signup', signUpData)
-        .then(response => console.log(response.data))
-        .catch(err => console.log(err.response.data))
-  }, [])
-
   return (
     <>
       <Router>

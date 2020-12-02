@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const authRoute = require('./routes/authRoute');
 const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db')
-const { requireAuth, checkUser } = require('./middlewares/authMiddleware');
 
 // Config
 require('dotenv').config({
@@ -28,9 +27,7 @@ app.use(cookieParser())
 app.set('view engine', 'ejs')
 
 // Routes
-app.get('*', checkUser);
 app.get('/', (req, res) => res.json({'message': 'main page here'}));
-app.get('/shop', requireAuth, (req, res) => res.send('Shop Here'));
 app.use(authRoute);
 
 // App listen
