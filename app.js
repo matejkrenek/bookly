@@ -2,6 +2,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const authRoute = require('./routes/authRoute');
+const bookRoute = require('./routes/bookRoute');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middlewares/authMiddleware');
@@ -20,11 +21,11 @@ app.set('view engine', 'ejs');
 
 // Mongo connection
 const dbURI = 'mongodb+srv://matejkrenek:192003mates@expressapp.q3vmc.mongodb.net/bookly?retryWrites=true&w=majority';
-mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true })
+mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
     .then(result => app.listen(port))
     .catch(err => console.log(err))
 
 app.get('*', checkUser);
 app.get('/', (req, res) => res.render('index', {title: 'Create your own book list'}));
-app.get('/shop', requireAuth, (req, res) => res.send('Shop Here'));
+app.use(bookRoute);
 app.use(authRoute);

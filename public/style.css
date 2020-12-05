@@ -51,7 +51,7 @@ h1, h2, h3, h4, h5, a.logo{
 }
 
     .navbar .container{
-        padding: var(--padding-larger) 170px;
+        padding-top: var(--padding-larger);
     }
 
         .logo{
@@ -242,6 +242,10 @@ h1, h2, h3, h4, h5, a.logo{
         border: 1px solid #FF5151;
     }
 
+    .fieldSection.agreement.error label{
+        color: #ff5151;
+    }
+
     label[for="agreement"]::after{
         color: #FFFFFF;
         content: "\2713";
@@ -277,14 +281,194 @@ h1, h2, h3, h4, h5, a.logo{
         transition: all 0.3s;
     }
 
-    button{
+    .userForm button{
         width: 250px;
         margin: 0 auto 60px;
     }
 
+/* home page */
+.heroPage .container{
+    margin-top: 40px;
+}
+
+p.littleTitle{
+    color: #2D32E2;
+    font-weight: 500;
+    font-size: var(--text-size-5);
+    margin-bottom: 16px;
+}
+
+h1.title{
+    font-size: var(--text-size-1);
+    line-height: 100%;
+    color: #131A6D;
+}
+
+h1.title:nth-child(3){
+    margin-bottom: 60px;
+    color: #6E84A0;
+}
+
+.searchForm{
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #FFFFFF;
+    box-shadow: 0 13px 39px rgba(0, 0, 0, 0.05);
+    border-radius: 13px;
+    min-width: 900px;
+    height: 90px;
+    padding: 0 24px;
+    margin-bottom: 22px;
+}
+
+.searchIcon{
+    color: #C4C9CF;
+
+}
+
+.searchForm .input{
+    height: 100%;
+    font-size: var(--text-size-5);
+    color: #5E6C80;
+    font-weight: 500;
+}
+
+    .searchForm .input::placeholder{
+        color: #C4C9CF;
+    }
+
+.createAcc{
+    color: #C4C9CF;
+    font-size: var(--text-size-5);
+
+    min-width: 900px;
+    text-align: right;
+}
+
+.createAcc a{
+    color: #2D32E2;
+    font-weight: 500;
+    font-size: var(--text-size-5);
+}
+    
+/* books section */
+.booksSection .container.column{
+    align-items: flex-start;
+}
+
+.findingBar {
+    margin-top: 90px;
+}
+
+.findingBar .searchForm{
+    min-width: 610px;
+    height: 60px;
+    margin-bottom: 50px;
+    padding: 12px;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+}
+
+.findingBar .searchForm .input{
+    font-size: var(--text-size-6);
+}
+
+.findingBar .searchForm .btn{
+    font-size: var(--text-size-7);
+    padding: 15px 40px;
+}
+
+.booksGrid{
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 30px 15px;
+}
+
+    .bookCard{
+
+    }
+
+    .bookCover{
+        position: relative;
+        width: 250px;
+        height: 315px;
+        margin-bottom: 10px;
+        background-color: rgba(127, 146, 172, 0.11);
+        z-index: 1;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+        .bookCover:hover .hoverBox{
+            transform: translateY(0%);
+            transition: transform 0.5s;
+        }
+
+        .bookCover:hover::before{
+            background-color: rgba(245, 247, 255, 0.75);
+            transition: all 0.5s;
+        }
+
+        .bookCover img{
+            position: relative;
+            width: 100%;
+            height: 100%;
+                
+        }
+
+        .bookCover::before{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(245, 247, 255, 0);
+            z-index: 1;
+            transition: all 0.5s;
+        }
+
+        .bookCover .hoverBox{
+            position: absolute;
+            background-color: #ffffff;
+            bottom: 0;
+            width: 100%;
+            padding: 24px 64px;
+            color: #2D32E2;
+            font-size: var(--text-size-6);
+            text-align: center;
+            z-index: 10;
+            transform: translateY(100%);    
+            transition: transform 0.5s;
+        }
+
+    .bookInfo{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+        .bookName{
+            color: #000000;
+            font-size: var(--text-size-6);
+            font-weight: 500;
+        }
+
+        .authorName{
+            color: rgba(0, 0, 0, 0.25);
+            font-size: var(--text-size-6);
+            font-weight: 500;
+        }
+
+        .bookRating{
+            color: #2D32E2;
+            font-size: var(--text-size-6)
+        }
+
 /* utilities */
 .container{
-    max-width: 1920px;
+    max-width: 1600px;
+    padding: 0 64px;
     margin: 0 auto;
     display: flex;
 }
@@ -322,4 +506,11 @@ h1, h2, h3, h4, h5, a.logo{
     .btn.blue{
         background-color: #2D32E2;
         color: #FFFFFF;
+    }
+
+    .btn.rounded{
+        font-size: var(--text-size-5);
+        font-weight: 400;
+        border-radius: 53px;
+        padding: var(--padding-medium) 50px;
     }

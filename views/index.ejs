@@ -1,11 +1,17 @@
 <%- include('./templates/header.ejs')%>
 
-    <div class="homeSection">
+    <div class="heroPage">
         <div class="container column">
-            <p>Welcome to Bookly</p>
-            <h1>Create your own book list</h1>
-            <h1>and share it with others</h1>
-            
+            <p class="littleTitle">Welcome to Bookly</p>
+            <h1 class="title">Create your own book list</h1>
+            <h1 class="title">and share it with others</h1>
+            <form class="searchForm">
+                <img src='./search.svg' />
+                <input class="input" type="text" placeholder="Search for a book"/>
+                <button class="btn blue rounded">Search</button>
+            </form>
+            <p class="createAcc">Don’t have an account yet? <a href="/signup">Create new account</a></p>
+            <img src='./heroBG.svg' />
         </div>
     </div>
 
