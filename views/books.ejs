@@ -11,7 +11,7 @@
             <div class="booksGrid">
                 <% if(books.length > 0) { %>
                     <% books.forEach(book => { %>
-                        <div class="bookCard">
+                        <a href="/book/<%= book._id %>" class="bookCard">
                             <div class="bookCover">
                                 <img src='<%= book.imgUrl %>'/>
                                 <div class="hoverBox">+ Add to my list</div>
@@ -22,16 +22,74 @@
                                     <p class="authorName"><%= book.author %></p>
                                 </div>
                                 <div class="bookRating">
-                                    <p>4,5</p>
+                                        </p><%= book.rating %></p>
+
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     <% })%>
                 <% } else {%>
-                   
+                    <div class="notFound__container">
+                        <img src="/bookNotFound.svg" alt="">
+                        <h3>Whoops...</h3>
+                        <p>We currently don’t have this book on Bookly, but you can help is by adding this book.</p>
+                        <a href="#" class="btn blue outlined">Create</a>
+                    </div>
                 <% } %>
             </div>
         </div>
     </div>
+    <script>
+        const searchInput = document.querySelector('.input');
+        const booksGrid = document.querySelector('.booksGrid');
+
+        searchInput.addEventListener('input', () => searchBooks(searchInput.value))
+
+        const searchBooks = async searchText => {
+            const res = await fetch(`/books/search`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+            const data = await res.json()
+
+            let matches = await data.filter(state => {
+                const regex = new RegExp(`${searchText}`, 'i')
+                return state.name.match(regex)
+            })
+
+            if(matches.length > 0){
+                const html = matches.map(match => `
+                <a href="/book/${ match._id }" class="bookCard">
+                        <div class="bookCover">
+                            <img src='${ match.imgUrl }'/>
+                            <div class="hoverBox">+ Add to my list</div>
+                        </div>
+                        <div class="bookInfo">
+                            <div class="bookMeta">
+                                <p class="bookName">${ match.name }</p>
+                                <p class="authorName">${ match.author }</p>
+                            </div>
+                            <div class="bookRating">
+                                <p>${ match.rating }</p>
+                            </div>
+                        </div>
+                </a>
+                `).join('')  
+
+                booksGrid.innerHTML = html
+            } else{
+                const html = `
+                <div class="notFound__container">
+                    <img src="./bookNotFound.svg" alt="">
+                    <h3>Whoops...</h3>
+                    <p>We currently don’t have this book on Bookly, but you can help is by adding this book.</p>
+                    <a href="#" class="btn blue outlined">Create</a>
+                </div>`
+
+                booksGrid.innerHTML = html
+
+            }
+        }
+    </script>
 
 <%- include('./templates/footer.ejs')%>

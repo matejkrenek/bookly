@@ -31,8 +31,12 @@ const requireNotAuth = (req, res, next) => {
                 console.log(err.message)
                 next()
             } else{
-                console.log(decodedData)
-                res.redirect('/user')
+                if(decodedData.exp > Math.round(Date.now()/1000)){
+                    res.redirect('/user')
+                } else{
+
+                    next()
+                }
             }
         })
 

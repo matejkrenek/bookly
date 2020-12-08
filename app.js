@@ -29,3 +29,8 @@ app.get('*', checkUser);
 app.get('/', (req, res) => res.render('index', {title: 'Create your own book list'}));
 app.use(bookRoute);
 app.use(authRoute);
+
+// 404 error
+app.use((req, res) => {
+    res.status(404).render('404', { title: '404 Not Found' });
+})

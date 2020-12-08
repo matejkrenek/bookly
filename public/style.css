@@ -17,6 +17,7 @@ html::-webkit-scrollbar{
     --text-size-6: 14px;
     --text-size-7: 12px;
     --text-size-8: 10px;
+    --text-section-title: 48px;
 
     --padding-larger: 28px;
     --padding-medium: 20px
@@ -52,6 +53,7 @@ h1, h2, h3, h4, h5, a.logo{
 
     .navbar .container{
         padding-top: var(--padding-larger);
+        align-items: center;
     }
 
         .logo{
@@ -69,11 +71,26 @@ h1, h2, h3, h4, h5, a.logo{
             gap: 50px;
         }
 
+        .navLinks .userImage{
+            width: 40px;
+            height: 40px;
+            background-color: #C4C9CF;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+            .navLinks .userImage img{
+                width: 100%;
+                height: 100%;
+                color: red;
+                display: none;
+            }
+
 /* LOGIN AND SIGNUP FORM */
 .formSection .container{
     position: relative;
     margin-top: 32px;
-    max-width: 550px;
+    max-width: 650px;
 }
 
     .titleSection{
@@ -380,13 +397,12 @@ h1.title:nth-child(3){
 }
 
 .booksGrid{
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    display: flex;
+    flex-wrap: wrap;
     gap: 30px 15px;
 }
 
     .bookCard{
-
     }
 
     .bookCover{
@@ -414,6 +430,7 @@ h1.title:nth-child(3){
             position: relative;
             width: 100%;
             height: 100%;
+            object-fit: cover;
                 
         }
 
@@ -465,9 +482,169 @@ h1.title:nth-child(3){
             font-size: var(--text-size-6)
         }
 
+/* Book Section */
+.bookReview .container.column{
+    align-items: flex-start;
+    margin-top: 90px;
+}
+
+.backLink{
+    display: flex;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+    .backLink svg{
+        margin-right: 18px;
+    }
+
+.bookHeader, .bookBody{
+    display: flex;
+    width: 100%;
+}
+
+.leftSide, .rightSide{
+    flex: 0.5;
+    position: relative;
+}
+
+.bookHeader{
+    margin-bottom: 56px;
+}
+
+    .leftSide .title{
+        font-size: var(--text-section-title);
+        font-family: 'Inter';
+    }
+
+    .leftSide .author{
+        font-size: var(--text-size-4);
+        color: #7F92AC;
+    }
+
+    .leftSide .author:hover {
+        text-decoration: underline;
+    }
+
+    .leftSide .author:hover ~ .authorInfoBox{
+        display: flex;
+    }
+    
+    .leftSide .authorInfoBox{
+        position: absolute;
+        display: none;
+        top: 125%;
+        background-color: #ffffff;
+        width: 450px;
+        height: 125px;
+        box-shadow: 0 5px 12px rgba(0, 0, 0 , 0.2);
+        border-radius: 6px;
+        z-index: 10;
+        animation: load 0.3s linear;
+    }
+
+    .leftSide .authorInfoBox:hover{
+        display: flex;
+    }
+
+    @keyframes load {
+        0%{
+            height: 0;
+        }
+        50%{
+            height: 62.5px;
+        }
+        100%{
+            height: 125px;
+        }
+    }
+
+        .leftSide .authorInfoBox::before{
+            content: "";
+            position: absolute;
+            z-index: -10;
+            left: 5%;
+            top: -10%;
+            width: 30px;
+            height: 30px;
+            transform: rotate(45deg);
+            background-color: #ffffff;
+            box-shadow: 0px 0px 12px rgba(0, 0, 0 , 0.2);
+        }
+
+        .leftSide .authorInfoBox::after{
+            content: "";
+            position: absolute;
+            z-index: -10;
+            left: 2.5%;
+            top: 0%;
+            width: 60px;
+            height: 30px;
+            background-color: #ffffff;
+            transform: rotate(0deg);
+
+        }
+
+    .bookHeader .rightSide{
+        display: flex;
+        justify-content: space-between;
+
+    }
+
+        .rightSide .bookProperty{
+            font-size: var(--text-size-5);
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+            .propertyTitle{
+                color: #7f92ac;
+                text-transform: uppercase;
+                font-weight: 600;
+                margin-bottom: 10px;
+            }
+
+            .propertyValue svg{
+                color: #7F92AC;
+            }
+
+                .propertyValue svg.full{
+                    color: #2D32E2;
+                }
+
+        .rightSide .btn{
+            height: fit-content;
+            font-size: var(--text-size-5);
+            letter-spacing: -1%;
+            padding: 24px 32px;
+            display: flex;
+            align-items: center;
+        }
+
+            .rightSide .btn svg{
+                margin-left: 8px;
+                font-weight: 600;
+            }
+
+.leftSide .imgContainer{
+    max-width: 580px;
+    max-height: 750px;
+}
+
+    .imgContainer img{
+        width: 100%;
+        height: 100%;
+    }
+
+.rightSide .aboutContent{
+    font-size: var(--text-size-4);
+    line-height: 180%;
+    font-weight: 600;
+}
+
 /* utilities */
 .container{
-    max-width: 1600px;
+    max-width: 1750px;
     padding: 0 64px;
     margin: 0 auto;
     display: flex;
@@ -514,3 +691,70 @@ h1.title:nth-child(3){
         border-radius: 53px;
         padding: var(--padding-medium) 50px;
     }
+
+    .btn.outlined{
+        background-color: transparent;
+        border: 1px solid #2d32e2;
+        color: #2d32e2;
+        padding: 22px 50px;
+    }
+
+.notFound__container{
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%,-75%);
+    max-width: 400px;
+    text-align: center;
+}
+
+    .notFound__container h3{
+        color: #5E6C80;
+        font-size: var(--text-size-3);
+        font-family: 'Inter';
+        margin: 21px 0;
+    }
+
+    .notFound__container p{
+        color: #C4C9CF;
+        font-size: var(--text-size-5);
+        margin-bottom: 42px;
+    }
+
+.Error404 .container{
+    margin-top: 50px;
+    font-size: var(--text-size-2);
+    color: #131A6D;
+}
+
+.Error404 #Label{
+        animation:  1s infinite linear;
+        transform-origin: 50% 50%;
+        transform-box: fill-box;
+}
+
+
+@keyframes label {
+    0%{
+        transform: rotateZ(0deg);
+    }
+    25%{
+        transform: rotateZ(10deg);
+
+    }
+    50%{
+        transform: rotateZ(0deg);
+
+    }
+
+    75%{
+        transform: rotateZ(-10deg);
+
+    }
+
+    100%{
+        transform: rotateZ(0deg);
+    }
+
+}
+
