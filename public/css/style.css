@@ -683,14 +683,126 @@ h1.title:nth-child(3){
             padding: 38px;
         }
 
-            .bookCreation .leftSide input[type="file"]{
-                margin: 0px;
-                height: 600px;      
-                border: 2px dashed rgba(127, 146, 172, 0.5);   
+        .bookCreation .leftSide .inputField{
+            height: 75%;
+        }
+
+        .bookCreation .imageUpload__wrap input{
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            outline: none;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .bookCreation .imageUpload__wrap{
+            border: 3px dashed rgba(127, 146, 172, 0.5);
+            height: 100%;
+            transition: 0.3s ease-out;
+            cursor: pointer;
+        }
+
+        .imageDropping,
+        .imageUpload__wrap:hover{
+            background-color:  rgba(127, 146, 172, 0.05);
+        }
+
+        .imageUpload__text{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+        }
+
+            .imageUpload__text i{
+                font-size: 150px;
+                color: #7F92AC;
+                margin-bottom: 78px;
             }
 
+            .imageUpload__text h3{
+                font-family: "Inter";
+                font-size: var(--text-size-3);
+                font-weight: 600;
+                color: #7F92AC;
+                margin-bottom: 16px;
+            }
 
-            
+            .imageUpload__text p{
+                font-size: var(--text-size-5);
+                color: #7F92AC;
+                width: 300px;
+                line-height: 150%;
+            }
+
+            .imageUpload__content{
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                top: 0;
+                left: 0;
+                animation: pop-up 0.2s ease-out;
+            }
+
+            @keyframes pop-up{
+                0%{
+                    opacity: 0;
+                }
+                100%{
+                    opacity: 1;
+                }
+            }
+
+            .imageUploaded{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                z-index: 100;
+            }
+
+            .removeImage{
+                position: absolute;
+                top: 16px;
+                right: 16px;
+                z-index: 1000;
+                background-color: rgba(31,37,49,.85);
+                height: 50px;
+                width: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: var(--text-size-5);
+                color:#ffffff;
+                cursor: pointer;
+                transition: 0.3s ease;
+            }
+
+            .removeImage:hover{
+                background-color: rgba(31,37,49,1);
+                transform: rotate(90deg);
+            }
+
+            .imageUpload__name{
+                position: absolute;
+                top: 16px;
+                left: 16px;
+                color: #ffffff;
+                max-width: 60%;
+                padding: 16px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                background-color: rgba(31,37,49,.85);
+                border-radius: 4px;
+                z-index: 1000;
+            }
+
 
         .bookCreation .rightSide{
             max-width: 650px;

@@ -2,10 +2,19 @@
     <div class="bookCreation">
         <div class="container column">
             <h2>Book creation</h2>
-            <form action="/books" method="POST" class="createForm" enctype="multipart/form-data">
+            <form class="createForm" enctype="multipart/form-data">
                 <div class="leftSide">
                     <div class="inputField">
-                        <input type="file" name="coverImageName" />
+                        <div class="imageUpload__wrap">
+                            <input type="file" class="imageUpload__input" name="coverImage" accept="image/*"/>
+                            <div class="imageUpload__text">
+                                <i class="far fa-image"></i>
+                                <h3>Upload book cover</h3>
+                                <p>Image must be at least 512x512 
+                                    in file format .jgp or .png</p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
                 <div class="rightSide">
