@@ -392,7 +392,7 @@ h1.title:nth-child(3){
 }
 
 .findingBar .searchForm .btn{
-    font-size: var(--text-size-7);
+    font-size: var(--text-size-6);
     padding: 15px 40px;
 }
 
@@ -400,6 +400,7 @@ h1.title:nth-child(3){
     display: flex;
     flex-wrap: wrap;
     gap: 30px 15px;
+    transition: all 0.3s;
 }
 
     .bookCard{
@@ -492,10 +493,23 @@ h1.title:nth-child(3){
     display: flex;
     align-items: center;
     margin-bottom: 32px;
+    transition: all 0.3s;
 }
+
+.backLink:hover svg{
+    margin-right: 9px;
+    transition: all 0.3s;
+    color: #2D32E2;
+}
+
+    .backLink:hover {
+        color: #2D32E2;
+        transition: all 0.3s;
+    }
 
     .backLink svg{
         margin-right: 18px;
+        transition: all 0.3s;
     }
 
 .bookHeader, .bookBody{
@@ -614,9 +628,8 @@ h1.title:nth-child(3){
 
         .rightSide .btn{
             height: fit-content;
-            font-size: var(--text-size-5);
+            font-size: var(--text-size-6);
             letter-spacing: -1%;
-            padding: 24px 32px;
             display: flex;
             align-items: center;
         }
@@ -641,6 +654,137 @@ h1.title:nth-child(3){
     line-height: 180%;
     font-weight: 600;
 }
+
+/* Book creation */
+.bookCreation .container.column{
+    align-items: flex-start;
+    margin-top: 90px;
+}
+
+    .bookCreation h2{
+        font-size: var(--text-section-title);
+        font-weight: 500;
+        font-family: 'Inter';
+        margin-bottom: 40px;
+    }
+
+    .bookCreation form{
+        width: 100%;
+        display: flex;
+        gap: 180px;
+        height: 900px;
+    }
+
+        .bookCreation .leftSide{
+            max-width: 700px;
+            height: 100%;
+            background-color: #ffffff;
+            border-radius: 4px;
+            padding: 38px;
+        }
+
+            .bookCreation .leftSide input[type="file"]{
+                margin: 0px;
+                height: 600px;      
+                border: 2px dashed rgba(127, 146, 172, 0.5);   
+            }
+
+
+            
+
+        .bookCreation .rightSide{
+            max-width: 650px;
+            max-height: 900px;
+        }
+            .bookCreation input,
+            .bookCreation textarea,
+            .bookCreation select{
+                border: 1px solid rgba(127, 146, 172, 0.2);
+                margin-bottom: 16px;
+                border-radius: 4px;
+                padding: 34px 23px 16px;
+                width: 100%;
+                resize: none;
+                outline: none;
+            }
+
+            .bookCreation select{
+                width: 200px;
+                display: flex;
+                align-items: center;
+                font-size: var(--text-size-6);
+                text-transform: uppercase;
+                color: #7F92AC;
+                font-family: "Inter";
+                font-weight: 600;
+                padding: 24px 32px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                background-image: url('./chevron-down.svg');
+                background-repeat: no-repeat;
+                background-position: 85% 50%;
+                outline: none;
+            }
+
+    .flex__inputField{
+        display: flex;
+        gap: 16px;
+    }
+
+        .flex__inputField .inputField:nth-child(1){
+            flex: 0.6;
+        }
+
+        .flex__inputField .inputField:nth-child(2){
+            flex: 0.4;
+        }
+
+    .bookCreation .btn{
+        width: fit-content;
+    }
+
+    .bookCreation form .btnContainer{
+        display: flex;
+        gap: 24px;
+        justify-content: flex-end;
+    }
+
+    .bookCreation .inputField{
+        position: relative;
+    }
+
+    .bookCreation form label{
+        top: 22px;
+    }
+    .bookCreation form input{
+        font-size: var(--text-size-6);
+        font-weight: 600;
+        color: #7F92AC;
+    }
+
+    .bookCreation form input[name="title"]{
+        font-size: var(--text-size-4);
+    }
+
+    .bookCreation form textarea{
+        font-size: var(--text-size-5);
+        font-family: inherit;
+        color: #7F92AC;
+        height: 100%
+    }
+
+        .bookCreation form label[for="description"]{
+            font-size: var(--text-size-6);
+            color: #7F92AC;
+            font-weight: 600;
+            top: 30px;
+        }
+
+        .bookCreation form textarea::placeholder{
+            color: #7F92AC;
+            opacity: 0.5;
+        }
 
 /* utilities */
 .container{
@@ -669,24 +813,27 @@ h1.title:nth-child(3){
 .btn{
     font-family: "Inter";
     font-weight: 600;
-    font-size: var(--text-size-7);
+    font-size: var(--text-size-6);
     letter-spacing: -1%;
-    padding: var(--padding-medium);
+    padding: var(--padding-medium) var(--padding-larger);
     background-color: transparent;
     border: transparent;
     color: transparent;
     border-radius: 4px;
     outline: none;
     cursor: pointer;
+    height: fit-content;
 }
 
     .btn.blue{
         background-color: #2D32E2;
         color: #FFFFFF;
+        font-size: var(--text-size-6);
+        letter-spacing: -1%;
     }
 
     .btn.rounded{
-        font-size: var(--text-size-5);
+        font-size: var(--text-size-6);
         font-weight: 400;
         border-radius: 53px;
         padding: var(--padding-medium) 50px;
@@ -696,7 +843,6 @@ h1.title:nth-child(3){
         background-color: transparent;
         border: 1px solid #2d32e2;
         color: #2d32e2;
-        padding: 22px 50px;
     }
 
 .notFound__container{

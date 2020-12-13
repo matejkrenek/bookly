@@ -13,17 +13,16 @@
                     <% books.forEach(book => { %>
                         <a href="/book/<%= book._id %>" class="bookCard">
                             <div class="bookCover">
-                                <img src='<%= book.imgUrl %>'/>
+                                <img src=''/>
                                 <div class="hoverBox">+ Add to my list</div>
                             </div>
                             <div class="bookInfo">
                                 <div class="bookMeta">
-                                    <p class="bookName"><%= book.name %></p>
+                                    <p class="bookName"><%= book.title %></p>
                                     <p class="authorName"><%= book.author %></p>
                                 </div>
                                 <div class="bookRating">
-                                        </p><%= book.rating %></p>
-
+                                    </p><%= book.rating ? book.rating : 0%></p>
                                 </div>
                             </div>
                         </a>
@@ -33,7 +32,7 @@
                         <img src="/bookNotFound.svg" alt="">
                         <h3>Whoops...</h3>
                         <p>We currently don’t have this book on Bookly, but you can help is by adding this book.</p>
-                        <a href="#" class="btn blue outlined">Create</a>
+                        <a href="/books/create" class="btn blue outlined">Create</a>
                     </div>
                 <% } %>
             </div>
@@ -50,29 +49,32 @@
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'}
             })
+
             const data = await res.json()
+
+            console.log(data)
 
             let matches = await data.filter(state => {
                 const regex = new RegExp(`${searchText}`, 'i')
-                return state.name.match(regex)
+                return state.title.match(regex)
             })
 
             if(matches.length > 0){
                 const html = matches.map(match => `
                 <a href="/book/${ match._id }" class="bookCard">
-                        <div class="bookCover">
-                            <img src='${ match.imgUrl }'/>
-                            <div class="hoverBox">+ Add to my list</div>
+                    <div class="bookCover">
+                        <img src=''/>
+                        <div class="hoverBox">+ Add to my list</div>
+                    </div>
+                    <div class="bookInfo">
+                        <div class="bookMeta">
+                            <p class="bookName">${ match.title }</p>
+                            <p class="authorName">${ match.author }</p>
                         </div>
-                        <div class="bookInfo">
-                            <div class="bookMeta">
-                                <p class="bookName">${ match.name }</p>
-                                <p class="authorName">${ match.author }</p>
-                            </div>
-                            <div class="bookRating">
-                                <p>${ match.rating }</p>
-                            </div>
+                        <div class="bookRating">
+                            <p>${ match.rating ? match.rating : 0 }</p>
                         </div>
+                    </div>
                 </a>
                 `).join('')  
 
@@ -83,7 +85,7 @@
                     <img src="./bookNotFound.svg" alt="">
                     <h3>Whoops...</h3>
                     <p>We currently don’t have this book on Bookly, but you can help is by adding this book.</p>
-                    <a href="#" class="btn blue outlined">Create</a>
+                    <a href="/books/create" class="btn blue outlined">Create</a>
                 </div>`
 
                 booksGrid.innerHTML = html

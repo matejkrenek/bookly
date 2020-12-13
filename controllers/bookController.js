@@ -1,29 +1,35 @@
-const Book = require('../models/Book')
-const User = require('../models/User')
-const jwt = require('jsonwebtoken')
-const {checkUser} = require('../middlewares/authMiddleware')
+const Book = require('../models/Book');
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const {checkUser} = require('../middlewares/authMiddleware');
+
 
 module.exports.book_post = (req, res) => {
-    const { name, author, imgUrl, description, rating } = req.body
+    const { title, author, description, publisher, genre } = req.body
+    const coverImageName = req.file != null ? req.file.filename : null
     const token = req.cookies.token
     
     try{
         jwt.verify(token, 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMPBBxtmUK1YHISMkgRsZ1la5Z', async (err, decodedData) => {
             if(!err){
                 const createdBy = await decodedData.id
-                console.log(decodedData.id)
-                const book = await Book.create({name, author, imgUrl, description, createdBy, rating})
-                .then(res =>  
-                    res.json(book)
+                const book = await Book.create({title, author, description, genre, coverImageName,  publisher, createdBy})
+                .then(result =>  
+                    res.redirect('/books')
                 )
-                .catch(err => res.json(err))
+                .catch(err => {
+                    res.status(400).json(err)
+                    console.log(err)
+                })
             } else{
                 res.status(400).json({err})
+                console.log(err)
             }
         })
     }
     catch(err){
         res.json({err})
+        console.log(err)
     }
 }
 
@@ -49,7 +55,7 @@ module.exports.book_get = (req, res) => {
 
     Book.findById(id)
         .then(result => {
-            res.render('book', {title: result.name, book: result})
+            res.render('book', {title: result.title, book: result})
         })
         .catch(err => res.status(404).send(err))
 }

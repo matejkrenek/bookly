@@ -1,3 +1,55 @@
 <%- include('./templates/header.ejs')%>
-    <h1>Book create</h1>
+    <div class="bookCreation">
+        <div class="container column">
+            <h2>Book creation</h2>
+            <form action="/books" method="POST" class="createForm" enctype="multipart/form-data">
+                <div class="leftSide">
+                    <div class="inputField">
+                        <input type="file" name="coverImageName" />
+                    </div>
+                </div>
+                <div class="rightSide">
+                    <div class="inputField">
+                        <input type="text" name="title" />
+                        <label for="title">book name</label>
+                    </div>
+                    <div class="flex__inputField">
+                        <div class="inputField">
+                            <input type="text" name="author" />
+                            <label for="author">author</label>
+                        </div>
+                        <div class="inputField">
+                            <input type="text" name="publisher" />
+                            <label for="publisher">publisher</label>
+                        </div>
+                    </div>
+                    <div class="inputField">
+                        <select name="genre" required>
+                            <option value="" disabled selected none>genre</option>
+                            <option value="fantasy">Fantasy</option>
+                            <option value="adventure">Adventure</option>
+                            <option value="romance">Romance</option>
+                            <option value="relationships">Relationships</option>
+                            <option value="travel">Travel</option>
+                            <option value="history">History</option>
+                            <option value="health">Health</option>
+                            <option value="motivational">Motivational</option>
+                            <option value="development">Development</option>
+                            <option value="self-help">Self-help</option>
+                            <option value="art">Art</option>
+                            <option value="guide">Guide</option>
+                        </select>
+                    </div>
+                    <div class="inputField">
+                        <textarea name="description" rows="25" placeholder="What is this book about?"></textarea>
+                        <label for="description">about</label>
+                    </div>
+                    <div class="btnContainer">
+                        <a href="/books" class="btn blue outlined">Cancel</a>
+                        <button class="btn blue">Complete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 <%- include('./templates/footer.ejs')%>

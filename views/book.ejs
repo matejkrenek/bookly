@@ -1,15 +1,14 @@
 <%- include('./templates/header.ejs')%>
     <div class="bookReview">
         <div class="container column">
-            <a href="#" class="backLink"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <a href="/books" class="backLink"><svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-left" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>
               </svg> Go back</a>
             <div class="bookHeader">
                 <div class="leftSide">
-                    <h2 class="title"><%= book.name %></h2>
+                    <h2 class="title"><%= book.title %></h2>
                     <p class="author"><%= book.author %></p>
                     <div class="authorInfoBox">
-
                     </div>
                 </div>
                 <div class="rightSide">

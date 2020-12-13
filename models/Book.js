@@ -1,16 +1,14 @@
 const mongoose = require('mongoose');
 
+const coverImageBasePath = 'uploads/bookCovers'
+
 const bookSchema = new mongoose.Schema({
-    name: {
+    title: {
         type: String,
         required: true,
         unique: true,
     },
     author: {
-        type: String,
-        required: true,
-    },
-    imgUrl: {
         type: String,
         required: true,
     },
@@ -20,8 +18,19 @@ const bookSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
-        required: true
     }, 
+    genre: {
+        type: String,
+        required: true
+    },
+    coverImageName: {
+        type: String,
+        required: true,
+    },
+    publisher: {
+        type: String,
+        required: true
+    },
     createdBy: {
     }
 
@@ -30,3 +39,5 @@ const bookSchema = new mongoose.Schema({
 const Book = mongoose.model('book', bookSchema);
 
 module.exports = Book;
+
+module.exports.coverImageBasePath = coverImageBasePath
