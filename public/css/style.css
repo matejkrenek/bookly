@@ -681,15 +681,28 @@ h1.title:nth-child(3){
             background-color: #ffffff;
             border-radius: 4px;
             padding: 38px;
+            text-align: center;
         }
 
-        .bookCreation .leftSide .inputField{
+        .bookCreation .leftSide .inputField:not(.inputField__url){
             height: 75%;
+            margin-bottom: 24px;
+            transition: 0.3s ease;
+        }
+
+        .bookCreation .leftSide .inputField.active{
+            height: 100%;
+        }
+
+        .bookCreation .leftSide .hidden{
+            display: none !important; 
+            transition: 0.3s ease;
         }
 
         .bookCreation .imageUpload__wrap input{
             position: absolute;
             margin: 0;
+            left: 0;
             padding: 0;
             width: 100%;
             height: 100%;
@@ -703,6 +716,33 @@ h1.title:nth-child(3){
             height: 100%;
             transition: 0.3s ease-out;
             cursor: pointer;
+        }
+
+        .bookCreation .imageUpload__wrap.error{
+            border: 3px dashed #FF5151;
+            animation: pulse 0.3s cubic-bezier(0.000, 0.340, 0.345, 1.495);
+        }
+
+        @keyframes pulse{
+            0%{
+                transform: scale(0.95);
+            }
+            25%{
+                transform: scale(1);
+            }
+            50%{
+                transform: scale(1.05);
+            }
+            100%{
+                transform: scale(1);
+
+            }
+        }
+
+        .bookCreation .imageUpload__wrap.error .imageUpload__text p,
+        .bookCreation .imageUpload__wrap.error .imageUpload__text h3,
+        .bookCreation .imageUpload__wrap.error .imageUpload__text i{
+            color: #FF5151;
         }
 
         .imageDropping,
@@ -802,6 +842,39 @@ h1.title:nth-child(3){
                 border-radius: 4px;
                 z-index: 1000;
             }
+        .bookCreation .leftSide .inputField__url{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: 0.3s ease;
+        }
+        .bookCreation .leftSide .inputField__url label{
+            position: relative;
+            top: 0;
+            left: 0;
+            font-weight: 600;
+            font-size: var(--text-size-5);
+            color: #7F92AC;
+            text-transform: none;
+        }
+
+        .bookCreation .leftSide .inputField__url input{
+            padding: 12px 32px;
+            margin-top: 16px;
+            width: 80%;
+            border: 1px solid rgba(127, 146, 172, 0.2);
+            background-color:  rgba(127, 146, 172, 0.2);
+            text-align: center;
+        }
+
+        .bookCreation .leftSide > p{
+            font-weight: 600;
+            font-size: var(--text-size-5);
+            color: #7F92AC;
+            margin-bottom: 32px;
+            transition: 0.3s ease;
+        }
+
 
 
         .bookCreation .rightSide{
