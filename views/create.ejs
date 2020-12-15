@@ -65,4 +65,65 @@
             </form>
         </div>
     </div>
+    <script>
+        const createBookForm = document.querySelector('.createForm');
+        const urlImage = document.getElementsByName('url')[0]
+        const title = document.getElementsByName('title')[0]
+        const author = document.getElementsByName('author')[0]
+        const publisher = document.getElementsByName('publisher')[0]
+        const genre = document.getElementsByName('genre')[0]
+        const description = document.getElementsByName('description')[0]
+        const imageUploadInput = document.querySelector('.imageUpload__input')
+
+        createBookForm.addEventListener('submit', async (e) => {
+            e.preventDefault()      
+
+            const postBook = async (objectData) => {
+                try{
+                    const res = await fetch('/books', {
+                        method: "POST",
+                        body: JSON.stringify(objectData),
+                        headers: {'Content-type': 'application/json'}
+                    });
+
+                    const data = await res.json();
+                } catch(err){
+                    console.log(err)
+                }
+            }
+
+            const file = imageUploadInput.files[0]
+
+            if(file){
+                const reader = new FileReader()
+                reader.readAsDataURL(file)
+                reader.onloadend = async () => {
+                    const object = {
+                        title: title.value,
+                        author: author.value,
+                        publisher: publisher.value,
+                        genre: genre.value,
+                        description: description.value,
+                        coverImageData: reader.result
+                    }
+
+                    postBook(object)
+                    location.assign('/books')
+                }
+            } else{
+                const object = {
+                    coverImageUrl: urlImage.value,
+                    title: title.value,
+                    author: author.value,
+                    publisher: publisher.value,
+                    genre: genre.value,
+                    description: description.value,
+                }
+
+                postBook(object)
+                location.assign('/books')
+            }
+            
+        })
+    </script>
 <%- include('./templates/footer.ejs')%>

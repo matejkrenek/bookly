@@ -9,7 +9,7 @@ inputImageBtn.addEventListener('change', function(){
     const file = this.files[0]
 
     if(file){
-        if(file.size < 153600){
+        if(file.size < 1000000){
             const reader = new FileReader
 
             reader.onload = function(){

@@ -2,39 +2,37 @@ const Book = require('../models/Book');
 const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const {checkUser} = require('../middlewares/authMiddleware');
-const imageMimeTypes = ['image/jpeg', 'image/png']
+const { cloudinary } = require('../helpers/cloudinary');
 
-
-module.exports.book_post = (req, res) => {
-    const { title, author, description, publisher, genre } = req.body
+module.exports.book_post = async (req, res) => {
+    let { title, author, publisher, genre, description, coverImageData, coverImageUrl } = req.body;
     const token = req.cookies.token
-    if(req.body.coverImage == null) return
-    const coverImageData = JSON.parse(req.body.coverImage)
-    if(coverImageData != null && imageMimeTypes.includes(coverImageData.type)){
-        coverImage = new Buffer.from(coverImageData.data, 'base64')
-        coverImageType = coverImageData.type
-    }
 
     try{
         jwt.verify(token, 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMPBBxtmUK1YHISMkgRsZ1la5Z', async (err, decodedData) => {
-            if(!err){
+            if(!err){           
                 const createdBy = await decodedData.id
-                const book = await Book.create({title, author, description, genre, coverImage, coverImageType, publisher, createdBy})
-                try{
-                    res.redirect('/books')
+
+                if(coverImageData){
+                        const fileStr = req.body.coverImageData
+                        const uploadedResponse = await cloudinary.uploader.upload(fileStr, { upload_preset: "book_covers" });
+                        coverImageUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_NAME}/image/upload/${uploadedResponse.public_id}.${uploadedResponse.format}`
                 }
-                catch(err){
-                    res.status(400).json(err)
-                    console.log(err)
-                }
+                const book = await Book.create({title, author, publisher, description, genre, createdBy, coverImageUrl})
+                    try{
+                        console.log(book)
+                    } catch(err){
+                        await res.status(400).json(err)
+                        console.log(err)
+                    }
             } else{
                 res.status(400).json({err})
                 console.log(err)
             }
         })
+
     }
     catch(err){
-        res.json({err})
         console.log(err)
     }
 }

@@ -13,7 +13,7 @@
                     <% books.forEach(book => { %>
                         <a href="/book/<%= book._id %>" class="bookCard">
                             <div class="bookCover">
-                                <img src='<%= book.coverImagePath %>'/>
+                                <img src='<%= book.coverImageUrl %>'/>
                                 <div class="hoverBox">+ Add to my list</div>
                             </div>
                             <div class="bookInfo">
@@ -63,7 +63,7 @@
                 const html = matches.map(match => `
                 <a href="/book/${ match._id }" class="bookCard">
                     <div class="bookCover">
-                        <img src="${ match.coverImageName ? '/uploads/bookCovers/'+match.coverImageName : match.imgUrl}" />
+                        <img src="${ match.coverImageUrl }" />
                         <div class="hoverBox">+ Add to my list</div>
                     </div>
                     <div class="bookInfo">

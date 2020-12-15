@@ -14,7 +14,7 @@
                 <div class="rightSide">
                     <div class="bookProperty">
                         <p class="propertyTitle">genre</p>
-                        <p class="propertyValue">art/design</p>
+                        <p class="propertyValue"><%= book.genre %></p>
                     </div>
                     <div class="bookProperty">
                         <p class="propertyTitle">rating</p>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="bookProperty">
                         <p class="propertyTitle">publisher</p>
-                        <p class="propertyValue">niggli verlag, 1996</p>
+                        <p class="propertyValue"><%= book.publisher %></p>
                     </div>
                     <button class="btn blue">Add to my list <svg width="1.25em" height="1.25em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
@@ -47,7 +47,7 @@
             </div>
             <div class="bookBody">
                 <div class="leftSide">
-                    <div class="imgContainer"><img src="<%= book.imgUrl %>" alt=""></div>
+                    <div class="imgContainer"><img src="<%= book.coverImageUrl %>" alt=""></div>
                 </div>
                 <div class="rightSide">
                     <div class="aboutSection">
