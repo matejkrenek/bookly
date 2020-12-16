@@ -38,11 +38,13 @@ module.exports.book_post = async (req, res) => {
 }
 
 module.exports.books_get = (req, res) => {
-    Book.find()
-        .then(result => {
+    Book.find((err, result) => {
+        if(!err){
             res.render('books', {title: 'Search for a Book', books: result});
-        })
-        .catch(err => res.send(err))
+        } else{
+            res.send(err)
+        }
+    }).sort({ updatedAt: 'desc' });
 }
 
 module.exports.books_search = (req, res) => {

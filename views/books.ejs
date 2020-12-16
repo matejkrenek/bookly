@@ -41,43 +41,49 @@
     <script>
         const searchInput = document.querySelector('.input');
         const booksGrid = document.querySelector('.booksGrid');
+        let books = []
 
-        searchInput.addEventListener('input', () => searchBooks(searchInput.value))
+        searchInput.addEventListener('keyup', (e) => {
+            const searchString = e.target.value.toLowerCase()
 
-        const searchBooks = async searchText => {
-            const res = await fetch(`/books/search`, {
-                method: 'GET',
-                headers: {'Content-Type': 'application/json'}
-            })
+            const filteredBooks = books.filter((book) => book.title.toLowerCase().includes(searchString))
 
-            const data = await res.json()
+            displayBooks(filteredBooks)
+        })
 
-            console.log(data)
+        const loadBooks = async () => {
+            try {
+                const res = await fetch(`/books/search`, {
+                    method: 'GET',
+                    headers: {'Content-Type': 'application/json'}
+                })                
+                books = await res.json();
+                console.log(books._)
+            } catch (err) {
+                console.error(err);
+            }
+        };
 
-            let matches = await data.filter(state => {
-                const regex = new RegExp(`${searchText}`, 'i')
-                return state.title.match(regex)
-            })
+        const displayBooks = (books) => {
 
-            if(matches.length > 0){
-                const html = matches.map(match => `
-                <a href="/book/${ match._id }" class="bookCard">
+            if(books.length > 0){
+                const html = books.map(book => `
+                <a href="/book/${ book._id }" class="bookCard">
                     <div class="bookCover">
-                        <img src="${ match.coverImageUrl }" />
+                        <img src="${ book.coverImageUrl }" />
                         <div class="hoverBox">+ Add to my list</div>
                     </div>
                     <div class="bookInfo">
                         <div class="bookMeta">
-                            <p class="bookName">${ match.title }</p>
-                            <p class="authorName">${ match.author }</p>
+                            <p class="bookName">${ book.title }</p>
+                            <p class="authorName">${ book.author }</p>
                         </div>
                         <div class="bookRating">
-                            <p>${ match.rating ? match.rating : 0 }</p>
+                            <p>${ book.rating ? book.rating : 0 }</p>
                         </div>
                     </div>
                 </a>
                 `).join('')  
-
                 booksGrid.innerHTML = html
             } else{
                 const html = `
@@ -89,9 +95,10 @@
                 </div>`
 
                 booksGrid.innerHTML = html
-
             }
         }
+
+        loadBooks()
     </script>
 
 <%- include('./templates/footer.ejs')%>

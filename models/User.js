@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
             message: 'This value must be true'
         }
     }
-});
+}, {timestamps: true} );
 
 // This will fire function before storing data in database
 userSchema.pre('save', async function(next){

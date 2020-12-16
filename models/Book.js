@@ -34,7 +34,7 @@ const bookSchema = new mongoose.Schema({
     createdBy: {
     }
 
-});
+}, {timestamps: true});
 
 
 const Book = mongoose.model('book', bookSchema);

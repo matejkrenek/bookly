@@ -8,7 +8,7 @@
                         <div class="imageUpload__wrap">
                             <input type="file" class="imageUpload__input" name="coverImage" accept="image/*"/>
                             <div class="imageUpload__text">
-                                <i class="far fa-image"></i>
+                                <i class="ri-image-line"></i>
                                 <h3>Upload book cover</h3>
                                 <p>Image must be at least 512x512 
                                     in file format .jgp or .png</p>
@@ -36,7 +36,8 @@
                             <label for="publisher">publisher</label>
                         </div>
                     </div>
-                    <div class="inputField">
+                    <div class="inputField selectField">
+                        <i class="ri-arrow-down-s-line"></i>
                         <select name="genre" required>
                             <option value="" disabled selected none>genre</option>
                             <option value="fantasy">Fantasy</option>
@@ -54,8 +55,10 @@
                         </select>
                     </div>
                     <div class="inputField">
-                        <textarea name="description" rows="25" placeholder="What is this book about?"></textarea>
-                        <label for="description">about</label>
+                        <div class="descriptionContainer">
+                            <label for="description">about</label>
+                            <textarea name="description" rows="25" placeholder="What is this book about?"></textarea>
+                        </div>
                     </div>
                     <div class="btnContainer">
                         <a href="/books" class="btn blue outlined">Cancel</a>
@@ -103,7 +106,7 @@
                         author: author.value,
                         publisher: publisher.value,
                         genre: genre.value,
-                        description: description.value,
+                        description: description.value.split("\n\n").join("<br>"),
                         coverImageData: reader.result
                     }
 
@@ -117,7 +120,7 @@
                     author: author.value,
                     publisher: publisher.value,
                     genre: genre.value,
-                    description: description.value,
+                    description: description.value.split("\n\n").join("</br>"),
                 }
 
                 postBook(object)

@@ -61,7 +61,7 @@ function handleError(element, message){
     if(!element.classList.contains('error')){
         element.classList.add('error')
         element.querySelector('h3').textContent = "Wowo, slow down"
-        element.querySelector('i').className = "fas fa-exclamation-circle"
+        element.querySelector('i').className = "ri-error-warning-line"
         element.querySelector('p').textContent = message
         inputImageBtn.value = ""
     }
@@ -101,7 +101,7 @@ function resetTemplate(){
     const errorElm = inputImageBtn.parentElement
     errorElm.classList.remove('error')
     errorElm.querySelector('h3').textContent = "Upload book cover"
-    errorElm.querySelector('i').className = "fas fa-image"
+    errorElm.querySelector('i').className = "ri-image-line"
     errorElm.querySelector('p').textContent = "Image must be at least 512x512 in file format .jgp or .png"
     inputImageBtn.value = ""
 }
