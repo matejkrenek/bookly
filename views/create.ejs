@@ -82,17 +82,12 @@
             e.preventDefault()      
 
             const postBook = async (objectData) => {
-                try{
-                    const res = await fetch('/books', {
-                        method: "POST",
-                        body: JSON.stringify(objectData),
-                        headers: {'Content-type': 'application/json'}
-                    });
-
-                    const data = await res.json();
-                } catch(err){
-                    console.log(err)
-                }
+                const res = await fetch('/books', {
+                    method: "POST",
+                    body: JSON.stringify(objectData),
+                    headers: {'Content-type': 'application/json'}
+                })
+                
             }
 
             const file = imageUploadInput.files[0]
@@ -111,7 +106,8 @@
                     }
 
                     postBook(object)
-                    location.assign('/books')
+
+                    window.location = '/books'
                 }
             } else{
                 const object = {
@@ -124,7 +120,8 @@
                 }
 
                 postBook(object)
-                location.assign('/books')
+
+                window.location = '/books'
             }
             
         })

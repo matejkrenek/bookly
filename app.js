@@ -24,7 +24,7 @@ app.use(morgan('dev'))
 app.set('view engine', 'ejs');
 
 // Mongo connection
-const dbURI = 'mongodb+srv://matejkrenek:192003mates@expressapp.q3vmc.mongodb.net/bookly?retryWrites=true&w=majority';
+const dbURI = process.env.DATABASE_URL;
 mongoose.connect(dbURI, { useUnifiedTopology: true, useNewUrlParser: true, useCreateIndex: true })
     .then(result => app.listen(port))
     .catch(err => console.log(err))
