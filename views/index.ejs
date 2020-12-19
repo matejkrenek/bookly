@@ -21,16 +21,8 @@
         searchForm.addEventListener('submit', async (e) => {
             e.preventDefault()
 
-            const res = await fetch(`/books/search`, {
-                method: 'GET',
-                headers: {'Content-Type': 'application/json'}
-            })
+            window.location.href = `/books?${input.value}`
 
-            const data = await res.json()
-
-            window.location.href = '/books'
-
-            console.log(data)
         })
     </script>
 

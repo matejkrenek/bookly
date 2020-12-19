@@ -4,36 +4,52 @@ const jwt = require('jsonwebtoken');
 const {checkUser} = require('../middlewares/authMiddleware');
 const { cloudinary } = require('../helpers/cloudinary');
 
+// handle errors function
+const handleErrors = (err) => {
+    console.log(err.message, err.code)
+    const errors = {
+        title: '',
+        author: '',
+        genre: '',
+        publisher: '',
+        description: '',
+        coverImageUrl: ''
+    }
+
+    // Duplicated error
+    if(err.code === 11000){
+        for(const prop in errors){
+            if(err.message.includes(prop)){
+                errors[prop] = `Book with this ${prop} already exists`
+            }
+        }
+        return errors
+    }
+
+    if(err.message.includes('book validation failed')){
+        Object.values(err.errors).forEach(({ properties }) => {
+            errors[properties.path] = properties.message;
+        })
+    }
+
+    return errors
+}
+
 module.exports.book_post = async (req, res) => {
     let { title, author, publisher, genre, description, coverImageData, coverImageUrl } = req.body;
-    const token = req.cookies.token
 
     try{
-        jwt.verify(token, 'MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMPBBxtmUK1YHISMkgRsZ1la5Z', async (err, decodedData) => {
-            if(!err){           
-                const createdBy = await decodedData.id
-
-                if(coverImageData){
-                        const fileStr = req.body.coverImageData
-                        const uploadedResponse = await cloudinary.uploader.upload(fileStr, { upload_preset: "book_covers" });
-                        coverImageUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_NAME}/image/upload/${uploadedResponse.public_id}.${uploadedResponse.format}`
-                }
-                const book = await Book.create({title, author, publisher, description, genre, createdBy, coverImageUrl})
-                    try{
-                        console.log(book)
-                    } catch(err){
-                        await res.status(400).json(err)
-                        console.log(err)
-                    }
-            } else{
-                res.status(400).json({err})
-                console.log(err)
-            }
-        })
-
+        if(coverImageData){
+                const fileStr = req.body.coverImageData
+                const uploadedResponse = await cloudinary.uploader.upload(fileStr, { upload_preset: "book_covers" });
+                coverImageUrl = `https://res.cloudinary.com/${process.env.CLOUDINARY_NAME}/image/upload/${uploadedResponse.public_id}.${uploadedResponse.format}`
+        }
+        const book = await Book.create({title, author, publisher, description, genre, coverImageUrl})
+        res.status(200).json({ book: book._id })
     }
     catch(err){
-        console.log(err)
+        const errors = handleErrors(err)
+        res.status(400).json({errors})
     }
 }
 
@@ -42,7 +58,8 @@ module.exports.books_get = (req, res) => {
         if(!err){
             res.render('books', {title: 'Search for a Book', books: result});
         } else{
-            res.send(err)
+            const errors = handleErrors(err)
+            res.status(400).send({errors})
         }
     }).sort({ updatedAt: 'desc' });
 }
@@ -53,7 +70,10 @@ module.exports.books_search = (req, res) => {
         .then(result => {
             res.status(200).json(result)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            const errors = handleErrors(err)
+            res.status(400).send({errors})
+        })
 }
 
 module.exports.book_get = (req, res) => {
@@ -63,7 +83,10 @@ module.exports.book_get = (req, res) => {
         .then(result => {
             res.render('book', {title: result.title, book: result})
         })
-        .catch(err => res.status(404).send(err))
+        .catch(err => {
+            const errors = handleErrors(err)
+            res.status(400).send({errors})
+        })
 }
 
 module.exports.bookCreate_get = (req, res) => {

@@ -22,23 +22,23 @@
                     </div>
                 </div>
                 <div class="rightSide">
-                    <div class="inputField">
+                    <div class="inputField title">
                         <input type="text" name="title" />
                         <label for="title">book name</label>
                     </div>
                     <div class="flex__inputField">
-                        <div class="inputField">
+                        <div class="inputField author">
                             <input type="text" name="author" />
                             <label for="author">author</label>
                         </div>
-                        <div class="inputField">
+                        <div class="inputField publisher">
                             <input type="text" name="publisher" />
                             <label for="publisher">publisher</label>
                         </div>
                     </div>
                     <div class="inputField selectField">
                         <i class="ri-arrow-down-s-line"></i>
-                        <select name="genre" required>
+                        <select name="genre">
                             <option value="" disabled selected none>genre</option>
                             <option value="fantasy">Fantasy</option>
                             <option value="adventure">Adventure</option>
@@ -54,8 +54,9 @@
                             <option value="guide">Guide</option>
                         </select>
                     </div>
-                    <div class="inputField">
+                    <div class="inputField description">
                         <div class="descriptionContainer">
+                            <p class="errorMessage"></p>
                             <label for="description">about</label>
                             <textarea name="description" rows="25" placeholder="What is this book about?"></textarea>
                         </div>
@@ -70,25 +71,16 @@
     </div>
     <script>
         const createBookForm = document.querySelector('.createForm');
-        const urlImage = document.getElementsByName('url')[0]
-        const title = document.getElementsByName('title')[0]
-        const author = document.getElementsByName('author')[0]
-        const publisher = document.getElementsByName('publisher')[0]
-        const genre = document.getElementsByName('genre')[0]
-        const description = document.getElementsByName('description')[0]
+        const titleSection = document.querySelector('.inputField.title')
+        const authorSection = document.querySelector('.inputField.author')
+        const descriptionSection = document.querySelector('.inputField.description')
+        const publisherSection = document.querySelector('.inputField.publisher')
+        const genreSection = document.querySelector('.selectField')
+        const imageSection = document.querySelector('.leftSide')
         const imageUploadInput = document.querySelector('.imageUpload__input')
 
         createBookForm.addEventListener('submit', async (e) => {
-            e.preventDefault()      
-
-            const postBook = async (objectData) => {
-                const res = await fetch('/books', {
-                    method: "POST",
-                    body: JSON.stringify(objectData),
-                    headers: {'Content-type': 'application/json'}
-                })
-                
-            }
+            e.preventDefault()     
 
             const file = imageUploadInput.files[0]
 
@@ -97,33 +89,89 @@
                 reader.readAsDataURL(file)
                 reader.onloadend = async () => {
                     const object = {
-                        title: title.value,
-                        author: author.value,
-                        publisher: publisher.value,
-                        genre: genre.value,
-                        description: description.value.split("\n\n").join("<br>"),
+                        title: createBookForm.title.value,
+                        author: createBookForm.author.value,
+                        publisher: createBookForm.publisher.value,
+                        genre: createBookForm.genre.value,
+                        description: createBookForm.description.value.split("\n\n").join("<br>"),
                         coverImageData: reader.result
                     }
+                    try{
+                        postBook(object)
+                    } catch(err){
+                        console.log(err)
+                    }
 
-                    postBook(object)
-
-                    window.location = '/books'
                 }
             } else{
                 const object = {
-                    coverImageUrl: urlImage.value,
-                    title: title.value,
-                    author: author.value,
-                    publisher: publisher.value,
-                    genre: genre.value,
-                    description: description.value.split("\n\n").join("</br>"),
+                    coverImageUrl: createBookForm.url.value,
+                    title: createBookForm.title.value,
+                    author: createBookForm.author.value,
+                    publisher: createBookForm.publisher.value,
+                    genre: createBookForm.genre.value,
+                    description: createBookForm.description.value.split("\n\n").join("<br>"),
                 }
 
-                postBook(object)
+                try{
+                    postBook(object)
+                } catch(err){
+                    console.log(err)
+                }
 
-                window.location = '/books'
             }
             
         })
+
+        const postBook = async (objectData) => {
+                const res = await fetch('/books', {
+                    method: "POST",
+                    body: JSON.stringify(objectData),
+                    headers: {'Content-type': 'application/json'}
+                })
+                
+                const data = await res.json();
+                console.log(data)
+
+                if(data.errors){
+                    if(data.errors.title.length > 0){
+                        titleSection.classList.add('error')
+                    } else{
+                        titleSection.classList.remove('error')
+                    }
+                    if(data.errors.author.length > 0){
+                        authorSection.classList.add('error')
+                    } else{
+                        authorSection.classList.remove('error')
+                    }   
+                    if(data.errors.publisher.length > 0){
+                        publisherSection.classList.add('error')
+                    } else{
+                        publisherSection.classList.remove('error')
+                    }
+                    if(data.errors.genre.length > 0){
+                        genreSection.classList.add('error')
+                    }  else{
+                        genreSection.classList.remove('error')
+                    }
+                    if(data.errors.description.length > 0){
+                        descriptionSection.classList.add('error')
+                        descriptionSection.querySelector('.errorMessage').textContent = data.errors.description
+                    }  else{
+                        descriptionSection.classList.remove('error')
+                        descriptionSection.querySelector('.errorMessage').textContent = ""
+                    }
+
+                    if(data.errors.coverImageUrl.length > 0){
+                        imageSection.classList.add('error')
+                    }  else{
+                        imageSection.classList.remove('error')
+                    }
+
+                } else{
+                    location.assign('/books')
+                }
+                
+        }
     </script>
 <%- include('./templates/footer.ejs')%>

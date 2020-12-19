@@ -435,7 +435,7 @@ h1.title:nth-child(3){
             position: relative;
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: fill;
                 
         }
 
@@ -526,6 +526,7 @@ h1.title:nth-child(3){
 .leftSide, .rightSide{
     flex: 0.5;
     position: relative;
+    word-wrap: break-word;    
 }
 
 .rightSide{
@@ -659,7 +660,6 @@ h1.title:nth-child(3){
     font-size: var(--text-size-4);
     line-height: 180%;
     font-weight: 600;
-    
 }
 
 /* Book creation */
@@ -690,6 +690,14 @@ h1.title:nth-child(3){
             text-align: center;
         }
 
+        .bookCreation .leftSide.error{
+            border: 1px solid #ff5151;
+        }
+
+        .bookCreation .leftSide.error .imageUpload__wrap{
+            border: 3px dashed #ff5151;
+        }
+
         .bookCreation .leftSide .inputField:not(.inputField__url){
             height: 75%;
             margin-bottom: 24px;
@@ -702,7 +710,7 @@ h1.title:nth-child(3){
 
         .bookCreation .leftSide .hidden{
             display: none !important; 
-            transition: 0.3s ease;
+            transition: 0.3s ease-out;
         }
 
         .bookCreation .imageUpload__wrap input{
@@ -720,7 +728,7 @@ h1.title:nth-child(3){
         .bookCreation .imageUpload__wrap{
             border: 3px dashed rgba(127, 146, 172, 0.5);
             height: 100%;
-            transition: 0.3s ease-out;
+            transition: 0.3s ease;
             cursor: pointer;
         }
 
@@ -899,6 +907,38 @@ h1.title:nth-child(3){
                 resize: none;
                 outline: none;
             }
+
+            
+        .bookCreation .inputField.error input,
+        .bookCreation .inputField.error .descriptionContainer,
+        .bookCreation .inputField.error select,
+        .bookCreation .inputField.error textarea,
+        .bookCreation .selectField.error i{
+            border: 1px solid #FF5151;
+            color: #ff5151;
+        }
+
+        .bookCreation .inputField.error .descriptionContainer{
+            margin-bottom: 32px;
+        }
+
+        .bookCreation .selectField.error i{
+            border: none;
+        }
+
+        .bookCreation .inputField.error textarea{
+            border: none;
+        }
+
+        .bookCreation .inputField.error label{
+            color: #ff5151;
+        }
+
+        .bookCreation .inputField .errorMessage{
+            position: absolute;
+            bottom: -24px;
+            right: 0;
+        }
 
             .bookCreation select{
                 position: relative;

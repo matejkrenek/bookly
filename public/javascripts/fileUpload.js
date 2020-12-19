@@ -5,8 +5,9 @@ const inputFieldUrl = document.querySelector('.inputField__url input')
 imageUploadWrap.addEventListener('dragover', () => imageUploadWrap.classList.add('imageDropping'))
 imageUploadWrap.addEventListener('dragleave', () => imageUploadWrap.classList.remove('imageDropping'))
 
-inputImageBtn.addEventListener('change', function(){
+inputImageBtn.addEventListener('change', function() {
     const file = this.files[0]
+
 
     if(file){
         if(file.size < 1000000){
@@ -24,6 +25,7 @@ inputImageBtn.addEventListener('change', function(){
                 `<img src="${result}" alt="image" class="imageUploaded" />
                 <a type="removeImage" class="removeImage"><i class="fas fa-times"></i></a>
                 <p class="imageUpload__name">${file.name}</p>`
+
     
                 inputImageBtn.parentElement.parentElement.appendChild(imageUploadContent)
                 inputImageBtn.parentElement.style.display = "none"
